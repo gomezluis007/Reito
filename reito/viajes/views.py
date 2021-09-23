@@ -8,6 +8,9 @@ from django.urls import reverse_lazy
 
 from .forms import DestinoForm, ViajeForm
 
+def index(request):
+    return render(request, 'index.html')
+
 class NuevoViaje(CreateView):
     model = Viaje
     #extra_context = {'':''}

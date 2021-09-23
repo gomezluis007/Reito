@@ -10,7 +10,7 @@ class UsuarioForm(forms.ModelForm):
             'username':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Username'}),
             'first_name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Nombre(s)'}),
             'last_name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Apellidos'}),
-            'email':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email'}),
+            'email':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Correo'}),
             'password':forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Contraseña'}),
             'telefono':forms.NumberInput(attrs={'class':'form-control','placeholder':'Telefono'})
         }
@@ -26,3 +26,10 @@ class EditarUsuarioForm(forms.ModelForm):
     class Meta:
         model=Usuario
         fields=('username','first_name','last_name','email','telefono')
+
+        labels = {
+            'username': 'Nombre de usuario',
+            'first_name': "Nombre(s)",
+            'last_name': 'Apellidos',
+            'email': 'Correo',
+        }

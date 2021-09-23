@@ -11,5 +11,5 @@ class ViajeForm(forms.ModelForm):
 class DestinoForm(forms.ModelForm):
     class Meta:
         model = Destino
-
+        
         fields = '__all__'
