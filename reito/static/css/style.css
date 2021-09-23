@@ -1,4 +1,3 @@
-
 .separador
 {
     padding: 5px;
@@ -90,6 +89,9 @@
     height: auto;
 }
 
-
+.boton {
+    background:#17C3B2; 
+    color:white;
+}
 
 
