@@ -5,4 +5,6 @@ appname="usuarios"
 
 urlpatterns = [
     path('signup/', views.NuevoUsuario.as_view(), name="signup"),
+    path('usuario/<int:pk>', views.VerUsuario.as_view(), name="ver_usuario"),
+    path('mi-cuenta/', views.ver_mi_usuario, name="ver_mi_cuenta"),
 ]
