@@ -1,5 +1,5 @@
 
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView,LogoutView
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.detail import DetailView
 from .models import Usuario
@@ -20,6 +20,8 @@ class LoginUsuario(LoginView):
     model=Usuario
     template_name= 'login.html'
 
+class LogoutUsuario(LogoutView):
+    pass
 def ver_mi_usuario(request):
     user=request.user
     return redirect("usuarios:ver_usuario", pk=user.id)
