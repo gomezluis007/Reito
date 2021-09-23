@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="{% static 'css/estilos_login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -23,7 +24,7 @@
                 {% csrf_token %}
                 <input type="text" id="id_username" class="fadeIn second" name="username" placeholder="Username">
                 <input type="password" id="id_password" class="fadeIn third" name="password" placeholder="Password">
-                <button type="submit" class="button-login"> Login</button>
+                <button type="submit" class="btn button-login"> Login</button>
             </form>
             <p>¿No tienes cuenta? registrate <a href="{%url 'usuarios:signup'%}">aqui</a>
             </p>
