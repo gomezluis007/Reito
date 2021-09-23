@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views.generic.detail import DetailView
 from .models import Usuario
-from .forms import UsuarioForm
+from .forms import EditarUsuarioForm, UsuarioForm
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
@@ -20,3 +20,16 @@ def ver_mi_usuario(request):
 class VerUsuario(DetailView):
     model=Usuario
     template_name="detalle.html"
+
+def editar_mi_usuario(request):
+    user=request.user
+    if request.method == "POST":
+        form=EditarUsuarioForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect("usuarios:ver_mi_cuenta")
+    form=EditarUsuarioForm(instance=user)
+    context={
+        "form":form
+    }
+    return render(request,"editar.html",context)
