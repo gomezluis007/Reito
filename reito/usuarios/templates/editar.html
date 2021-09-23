@@ -1,0 +1,38 @@
+{% extends 'base1.html' %}
+{% load static %}
+
+{% block titulo %}
+Editar cuenta
+{% endblock titulo %}
+
+{% block body %}
+
+<div class="container bootstrap snippet">
+    <div class="row">
+    	<div class="col-sm-9">
+            <div class="tab-content">
+                <div class="tab-pane active" id="home">
+                    <div class="form-group">
+                        <div class="col-xs-6">
+                            <form method="post">
+                                {% csrf_token %}
+                                {% for field in form %}
+                                    <label for="{{field.name}}"><h4>{{field.label}}</h4></label>
+                                    <input class="form-control" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
+                                {% endfor %}
+                                <br>
+                                <button type="submit" style="background:#17C3B2; color:white;" class="btn">Guardar cambios</button>
+                            </form>
+                        </div>
+                    </div>
+                </div><!--/tab-pane-->
+            </div><!--/tab-content-->
+        </div><!--/col-9-->
+    </div><!--/row-->
+</div>
+
+{% endblock body %}
+
+{% block js %}
+
+{% endblock js %}

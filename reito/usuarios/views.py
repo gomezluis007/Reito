@@ -1,6 +1,6 @@
 
 from django.contrib.auth.views import LoginView
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.detail import DetailView
 from .models import Usuario
 from .forms import EditarUsuarioForm, UsuarioForm
@@ -26,15 +26,17 @@ def ver_mi_usuario(request):
 
 class VerUsuario(DetailView):
     model=Usuario
+    context_object_name="usuario"
     template_name="detalle.html"
 
 def editar_mi_usuario(request):
-    user=request.user
+    user=get_object_or_404(Usuario,id=request.user.id)
+    print(user)
     if request.method == "POST":
         form=EditarUsuarioForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
-            return redirect("usuarios:ver_mi_cuenta")
+            return redirect("usuarios:ver_usuario", pk=user.id)
     form=EditarUsuarioForm(instance=user)
     context={
         "form":form
