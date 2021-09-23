@@ -5,4 +5,5 @@ appname="usuarios"
 
 urlpatterns = [
     path('signup/', views.NuevoUsuario.as_view(), name="signup"),
+    path('login/',views.LoginUsuario.as_view(),name='login'),
 ]
