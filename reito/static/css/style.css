@@ -1,0 +1,43 @@
+
+.separador
+{
+    padding: 5px;
+    background-color: rgb(231, 239, 250);
+}
+
+.propio-nav
+{
+    background-color: rgb(21, 84, 165);
+}
+
+.contenido
+{
+    /* padding: 15px; */
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.contenido2
+{
+    padding-bottom: 30px;
+}
+
+.titulo
+{
+    text-align: center;
+}
+
+.formulario
+{
+    width: 100%;
+    max-width: 600px;
+    padding: 30px;
+    margin: auto;
+}
+/* .acciones
+{
+    display: ;
+    align-items: flex-end;
+} */
