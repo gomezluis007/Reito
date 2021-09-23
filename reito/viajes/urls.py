@@ -9,6 +9,6 @@ urlpatterns = [
     path('detalle/', views.DetalleViaje.as_view(), name="detalle"),
     path('editar/', views.EditarViaje.as_view(), name="editar"),
     path('eliminar/', views.EliminarViaje.as_view(), name="eliminar"),
-    path('', views.EliminarViaje.as_view(), name="index"),
+    path('', views.index, name="index"),
     
 ]
