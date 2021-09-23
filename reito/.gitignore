@@ -5,11 +5,13 @@ __pycache__
 db.sqlite3
 media
 
+
 reito/__pycache__/
 reservas/__pycache__/
 usuarios/__pycache__/
 vehiculos/__pycache__/
 viajes/__pycache__/
+
 
 reito/migrations/
 reservas/migrations/
