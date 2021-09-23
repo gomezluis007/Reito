@@ -2,7 +2,7 @@ from reito.viajes.models import Viaje, Destino
 from django.shortcuts import render
 from django.shortcuts import render
 
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 
 from django.urls import reverse_lazy
@@ -29,3 +29,7 @@ class EditarViaje(UpdateView):
     form_class = ViajeForm
     #extra_context = {'':''}
     success_url = reverse_lazy('viajes:detalle')
+
+class EliminarViaje(DeleteView):
+    model = Viaje
+    success_url = reverse_lazy('viajes:nuevo')
