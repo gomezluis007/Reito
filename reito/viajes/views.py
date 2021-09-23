@@ -1,5 +1,4 @@
-from reito.viajes.models import Viaje, Destino
-from django.shortcuts import render
+from .models import Viaje, Destino
 from django.shortcuts import render
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -12,6 +11,7 @@ from .forms import DestinoForm, ViajeForm
 class NuevoViaje(CreateView):
     model = Viaje
     #extra_context = {'':''}
+    template_name="nuevo.html"
     form_class = ViajeForm
     success_url = reverse_lazy('viajes:detalle')
 
