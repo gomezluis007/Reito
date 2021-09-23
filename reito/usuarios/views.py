@@ -17,6 +17,7 @@ class NuevoUsuario(CreateView):
     
 # Login,Signup y Logout
 class LoginUsuario(LoginView):
+    model=Usuario
     template_name= 'login.html'
 
 def ver_mi_usuario(request):

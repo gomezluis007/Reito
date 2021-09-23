@@ -128,5 +128,5 @@ STATICFILES_DIRS = (
 )
 
 LOGIN_URL = reverse_lazy('usuarios:login')
-LOGIN_REDIRECT_URL = reverse_lazy('viajes:buscar')
+LOGIN_REDIRECT_URL = reverse_lazy('viajes:index')
 LOGOUT_REDIRECT_URL = reverse_lazy('usuarios:login')
