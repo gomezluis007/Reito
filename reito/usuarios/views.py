@@ -31,7 +31,6 @@ class VerUsuario(DetailView):
 
 def editar_mi_usuario(request):
     user=get_object_or_404(Usuario,id=request.user.id)
-    print(user)
     if request.method == "POST":
         form=EditarUsuarioForm(request.POST, instance=user)
         if form.is_valid():
