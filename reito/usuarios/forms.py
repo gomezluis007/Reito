@@ -21,3 +21,8 @@ class UsuarioForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+class EditarUsuarioForm(forms.ModelForm):
+    class Meta:
+        model=Usuario
+        fields=('username','first_name','last_name','email','telefono')
