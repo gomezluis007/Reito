@@ -49,10 +49,10 @@
                         Cerrar sesi&oacute;n
                     </a>
                 {% else %}
-                    <a class="navbar-brand">
+                    <a class="navbar-brand" href="{% url 'usuarios:login' %}">
                         Iniciar sesi&oacute;n
                     </a>
-                    <a class="navbar-brand">
+                    <a class="navbar-brand" href="{% url 'usuarios:signup' %}">
                         Crear cuenta
                     </a>
                 {% endif %}
