@@ -1,7 +1,7 @@
 reito/*.log
 reito/*.pot
 reito/*.pyc
-__pycache__
+reito/__pycache__/
 reito/db.sqlite3
 reito/media/
 
