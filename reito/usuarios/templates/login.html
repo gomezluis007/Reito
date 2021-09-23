@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/estilos_login.css' %}">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    
+    <!------ Include the above in your HEAD tag ---------->
+
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <img src="{%static 'img/icons/user_icon.svg'%}" class="iconUser" id="icon" alt="User Icon"/>
+            <!-- Login Form -->
+            <form>
+                {% csrf_token %}
+                <input type="text" id="id_username" class="fadeIn second" name="username" placeholder="Username">
+                <input type="text" id="id_password" class="fadeIn third" name="password" placeholder="Password">
+                <button type="submit" class="button-login"> Login</button>
+            </form>
+            <p>¿No tienes cuenta? registrate <a href="{%url 'usuarios:signup'%}">aqui</a>
+                
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
