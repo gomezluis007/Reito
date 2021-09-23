@@ -1,4 +1,4 @@
-from reito.viajes.models import Viaje, Destino
+from .models import Viaje, Destino
 from django.shortcuts import render
 from django.shortcuts import render
 
@@ -8,6 +8,9 @@ from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
 
 from .forms import DestinoForm, ViajeForm
+
+def index(request):
+    return render(request, 'index.html')
 
 class NuevoViaje(CreateView):
     model = Viaje
