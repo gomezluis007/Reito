@@ -1,3 +1,5 @@
+
+from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, render
 from django.views.generic.detail import DetailView
 from .models import Usuario
@@ -12,6 +14,10 @@ class NuevoUsuario(CreateView):
     form_class=UsuarioForm
     template_name="signup.html"
     success_url=reverse_lazy("usuarios:login")
+    
+# Login,Signup y Logout
+class LoginUsuario(LoginView):
+    template_name= 'login.html'
 
 def ver_mi_usuario(request):
     user=request.user
