@@ -45,7 +45,7 @@
                     <a class="navbar-brand">
                         {{ user.username }}
                     </a>
-                    <a class="navbar-brand">
+                    <a class="navbar-brand" href="{%url 'usuarios:logout'%}">
                         Cerrar sesi&oacute;n
                     </a>
                 {% else %}
