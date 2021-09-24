@@ -1,0 +1,37 @@
+  
+{% extends 'base1.html' %}
+
+{% block titulo %}
+    Nuevo vehiculo
+{% endblock titulo %}
+
+{% block css %}
+{% endblock css %}
+    
+
+{% block body %}
+    <h1>Agrega un vehiculo a tu cuenta</h1>
+    <div class="container bootstrap snippet">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="home">
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    {{form.as_p}}
+                                    <button type="submit" class="btn btn-success"> Aceptar </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div><!--/tab-pane-->
+                </div><!--/tab-content-->
+            </div><!--/col-9-->
+        </div><!--/row-->
+    </div>
+{% endblock body %}
+
+
+{% block js %}
+{% endblock js %}

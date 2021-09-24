@@ -7,7 +7,7 @@ class Vehiculo(models.Model):
     matricula = models.CharField("Matricula", max_length=7)
     asientos = models.IntegerField("Asientos")
     descripcion = models.CharField("Descripcion", max_length=500)
-    id_usuario = models.OneToOneField("usuarios.Usuario", on_delete=models.CASCADE)
+    id_usuario = models.OneToOneField("usuarios.Usuario",verbose_name="Usuario", on_delete=models.CASCADE,null=True,blank=True)
 
     def __str__(self):
         return self.matricula
