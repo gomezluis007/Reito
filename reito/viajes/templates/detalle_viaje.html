@@ -1,0 +1,23 @@
+{% extends 'base1.html' %}
+
+
+{% block title %}
+  Información del Viaje
+{% endblock title %}
+
+{{% block body %}
+  
+<div class="text-center">
+    <h1 class="text-center">Detalle Viaje</h1>
+
+    <h3>Conductor: {{object.conductor}}</h3>
+    <h3>Destino: {{object.destino}}</h3>
+    <h3>Precio: {{object.precio}}</h3>
+    <h3>Fecha: {{object.fecha}}</h3>
+    <h3>Hora: {{object.hora}}</h3>
+    <h3>Asientos: {{object.asientos}}</h3>
+    <h3>Descripcion: {{object.descripcion}}</h3>
+
+</div>
+
+{% endblock body %}}
