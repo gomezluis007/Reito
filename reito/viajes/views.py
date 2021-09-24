@@ -32,11 +32,9 @@ class NuevoDestino(CreateView):
 
 def detalle_viaje(request, pk):
     viaje = get_object_or_404(Viaje, id=pk)
-
     context={
         'viaje':viaje
     }
-
     return render(request, "detalle_viaje.html", context)
 
 class EditarViaje(UpdateView):
