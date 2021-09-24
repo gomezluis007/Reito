@@ -1,5 +1,6 @@
+from usuarios.models import Usuario
 from .models import Viaje, Destino
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
@@ -17,6 +18,11 @@ class NuevoViaje(CreateView):
     template_name="nuevo.html"
     form_class = ViajeForm
     success_url = reverse_lazy('viajes:index')
+
+    def form_valid(self, form):
+        usuario = get_object_or_404(Usuario, id=self.request.user.id)
+        form.instance.conductor = usuario
+        return super().form_valid(form)
 
 class NuevoDestino(CreateView):
     model = Destino
