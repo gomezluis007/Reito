@@ -1,0 +1,50 @@
+{% extends 'base1.html' %}
+
+
+
+{% block title %}
+    Reito
+{% endblock title %}
+    
+
+{{% block body %}
+  
+<div class="container text-center">
+  <div class="col">
+    <div class="row">
+      <h1>{{object.destino}}</h1>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="row">
+      <h3>Conductor: {{object.conductor}}</h3>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="row">
+      <h3>{{object.fecha}}</h3> <h3>{{object.hora}}</h3>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="row">
+      <h3>Asientos: {{object.asientos}}</h3> <h3>${{object.precio}}</h3>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="row">
+      <h3>Descripcion: {{object.descripcion}}</h3>
+    </div>
+  </div>
+
+  <a class="btn boton" href="{% url 'reservas:nueva' user.id object.id %}">Reservar</a>
+</div>
+
+
+
+    
+{% endblock body %}
+    

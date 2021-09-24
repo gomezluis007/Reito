@@ -32,11 +32,9 @@ class NuevoDestino(CreateView):
 
 def detalle_viaje(request, pk):
     viaje = get_object_or_404(Viaje, id=pk)
-    
     context={
         'viaje':viaje
     }
-    
     return render(request, "detalle_viaje.html", context)
 
 class EditarViaje(UpdateView):
@@ -48,3 +46,8 @@ class EditarViaje(UpdateView):
 class EliminarViaje(DeleteView):
     model = Viaje
     success_url = reverse_lazy('viajes:nuevo')
+
+class DetalleViajeViajero(DetailView):
+    model = Viaje
+    template_name="detalle_viaje_viajero.html"
+
