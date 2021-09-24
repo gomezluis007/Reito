@@ -16,7 +16,7 @@ class NuevoViaje(CreateView):
     #extra_context = {'':''}
     template_name="nuevo.html"
     form_class = ViajeForm
-    success_url = reverse_lazy('viajes:detalle')
+    success_url = reverse_lazy('viajes:index')
 
 class NuevoDestino(CreateView):
     model = Destino
@@ -26,6 +26,7 @@ class NuevoDestino(CreateView):
 
 class DetalleViaje(DetailView):
     model = Viaje
+    template_name="detalle_viaje.html"
 
 class EditarViaje(UpdateView):
     model = Viaje

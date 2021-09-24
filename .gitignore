@@ -11,6 +11,7 @@ reito/reservas/__pycache__/
 reito/usuarios/__pycache__/
 reito/vehiculos/__pycache__/
 reito/viajes/__pycache__/
+reito/usuarios/migrations/__pycache__/
 
 
 reito/reito/migrations/
