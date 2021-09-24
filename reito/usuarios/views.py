@@ -29,7 +29,7 @@ def ver_mi_usuario(request):
 class VerUsuario(DetailView):
     model=Usuario
     context_object_name="usuario"
-    template_name="detalle.html"
+    template_name="detalle_usuarios.html"
 
 def editar_mi_usuario(request):
     user=get_object_or_404(Usuario,id=request.user.id)
@@ -42,4 +42,4 @@ def editar_mi_usuario(request):
     context={
         "form":form
     }
-    return render(request,"editar.html",context)
+    return render(request,"editar_usuarios.html",context)
