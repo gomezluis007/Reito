@@ -1,5 +1,6 @@
 from django.db import models
 
+# Create your models here.
 
 class Reserva(models.Model):
     viaje = models.ForeignKey("viajes.Viaje", verbose_name="Viaje", null=True, blank=True, on_delete=models.CASCADE)
