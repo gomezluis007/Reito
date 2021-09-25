@@ -94,4 +94,22 @@
     color:white;
 }
 
+.card h1 {
+    font-weight: bolder;
+}
+
+.card li {
+    font-size: 1.5rem;
+}
+
+.card p {
+    font-size: 1.5rem;
+}
+
+.boton-negativo {
+    background:#3A606E; 
+    color:white;
+}
+
+
 
