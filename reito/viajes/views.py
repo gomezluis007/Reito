@@ -47,7 +47,6 @@ def detalle_viaje(request, pk):
         'viaje':viaje,
         'viajeros':viajeros
     }
-    
     return render(request, "detalle_viaje.html", context)
 
 class EditarViaje(UpdateView):
@@ -59,3 +58,8 @@ class EditarViaje(UpdateView):
 class EliminarViaje(DeleteView):
     model = Viaje
     success_url = reverse_lazy('viajes:nuevo')
+
+class DetalleViajeViajero(DetailView):
+    model = Viaje
+    template_name="detalle_viaje_viajero.html"
+

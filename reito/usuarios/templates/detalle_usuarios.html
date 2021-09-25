@@ -40,6 +40,11 @@ Detalle de cuenta
           <form action="{% url 'usuarios:editar_mi_cuenta' %}" method="GET">
               <button type="submit" style="background:#17C3B2; color:white;" class="btn">Editar</button>
           </form>
+          {%if vehiculo %}
+          <a href="{% url 'vehiculos:ver' vehiculo.id %}" class="boton btn"> Ver mi vehiculo</a>
+          {%else%}
+            <a href="{% url 'vehiculos:nuevo' %}" class="btn btn-primary">Agregar vehiculo</a>
+          {%endif%}
         </div><!--/col-9-->
     </div><!--/row-->
 </div>

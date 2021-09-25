@@ -1,0 +1,40 @@
+
+<nav class="navbar nav-personalized ">
+    <div class="container-fluid">
+
+        <div class="d-flex justify-content-end">
+            {% if user.is_authenticated %}
+                <a class="navbar-brand">
+                    Mis reitos
+                </a>
+            {% endif %}
+            
+        </div>
+
+        {% if user.is_authenticated %}
+            <div class="d-flex justify-content-center">
+                <a class="navbar-brand fs-2">
+                    Reito
+                </a>
+            </div>
+        {% endif %}
+
+        <div class="d-flex justify-content-end">
+            {% if user.is_authenticated %}
+                <a class="navbar-brand">
+                    {{ user.username }}
+                </a>
+                <a class="navbar-brand" href="{%url 'usuarios:logout'%}">
+                    Cerrar sesi&oacute;n
+                </a>
+            {% else %}
+                <a class="navbar-brand" href="{% url 'usuarios:login' %}">
+                    Iniciar sesi&oacute;n
+                </a>
+                <a class="navbar-brand" href="{% url 'usuarios:signup' %}">
+                    Crear cuenta
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</nav>

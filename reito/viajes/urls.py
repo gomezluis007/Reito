@@ -10,5 +10,6 @@ urlpatterns = [
     path('editar/<int:pk>', views.EditarViaje.as_view(), name="editar"),
     path('eliminar/<int:pk>', views.EliminarViaje.as_view(), name="eliminar"),
     path('', views.index, name="index"),
+    path('detalle-v-viajero/<int:pk>', views.DetalleViajeViajero.as_view(), name="detalle_viaje_viajero"),
     
 ]

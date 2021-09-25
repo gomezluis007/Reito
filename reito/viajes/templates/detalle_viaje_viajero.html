@@ -1,0 +1,40 @@
+{% extends 'base1.html' %}
+
+
+
+{% block title %}
+    Reito
+{% endblock title %}
+    
+
+{% block body %}
+  
+
+<div class="container col-sm-11 col-md-9 col-lg-5">
+    <div class="card">
+        <div class="card-header text-center">
+            <h1 class="card-title">{{object.destino}}</h1>
+            <h5 class="card-title">{{object.fecha}}</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{object.hora}}</li>
+            <li class="list-group-item">${{object.precio}}</li>
+            <li class="list-group-item">{{object.asientos}} asientos disponibles</li>
+            <li class="list-group-item">{{object.conductor}}</li>
+        </ul>
+        
+        <div class="card-body">
+            <p class="card-text">{{object.descripcion}}</p>
+        </div>
+        <div class="card-footer text-muted text-center">
+            {% if tiene_reserva %}
+                <a class="btn boton-negativo" href="#">Cancelar</a>
+            {% else %}
+                <a class="btn boton" href="{% url 'reservas:nueva' user.id object.id %}">Reservar</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+    
+{% endblock body %}
+    
