@@ -1,5 +1,6 @@
 from usuarios.models import Usuario
 from .models import Viaje, Destino
+from reservas.models import Reserva
 from django.shortcuts import get_object_or_404, redirect, render
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -51,3 +52,9 @@ class DetalleViajeViajero(DetailView):
     model = Viaje
     template_name="detalle_viaje_viajero.html"
 
+    def get_context_data(self, **kwargs):
+        context = super(DetalleViajeViajero,self).get_context_data(**kwargs)
+        reservas = Reserva.objects.filter(usuario=self.request.user.id, viaje=self.kwargs.get('pk'))
+        if(reservas):
+            context['tiene_reserva'] = True
+        return context
