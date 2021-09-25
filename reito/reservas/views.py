@@ -13,8 +13,6 @@ def nueva_reserva(request, user_pk, viaje_pk):
         if(viaje.asientos > 0):
             reserva = Reserva.objects.create(viaje=viaje, usuario=usuario)
             reserva.save()
-            viaje.asientos -= 1
-            viaje.save()
             messages.success(request, "Tu asiento ha sido reservado exitosamente")
             return redirect('viajes:index')
         else:
