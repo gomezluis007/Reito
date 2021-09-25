@@ -5,10 +5,13 @@
   Información del Viaje
 {% endblock title %}
 
-{{% block body %}
-  
+{% block body %}
+
+<h1 class="text-center">Detalle General</h1>
+<br>
+<hr>
 <div class="text-center">
-    <h1 class="text-center">Detalle Viaje</h1>
+    <h2 class="text-center">Detalle Viaje</h2>
 
     <h3>Conductor: {{viaje.conductor}}</h3>
     <h3>Destino: {{viaje.destino}}</h3>
@@ -19,5 +22,30 @@
     <h3>Descripcion: {{viaje.descripcion}}</h3>
 
 </div>
+<br>
+<hr>
 
-{% endblock body %}}
+<h1 class="text-center">Viajeros aprobados</h1>
+<br>
+<hr>
+<table class="table">
+  <thead>
+      <th>Nombre</th>
+      <th>Acciones</th>
+  </thead>
+  <tbody>
+      {% for viajero in viajeros %}
+      <tr>
+          <td>{{viajero}}</td>
+          </td>
+          <td>
+              <!-- acciones -->
+              
+          </td>
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+<br>
+<hr>
+{% endblock body %}

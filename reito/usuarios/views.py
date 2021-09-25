@@ -1,4 +1,5 @@
 
+from vehiculos.models import Vehiculo
 from django.contrib.auth.views import LoginView,LogoutView
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.detail import DetailView
@@ -28,8 +29,16 @@ def ver_mi_usuario(request):
 
 class VerUsuario(DetailView):
     model=Usuario
-    context_object_name="usuario"
     template_name="detalle_usuarios.html"
+
+    def get_context_data(self, **kwargs):
+            context = super(VerUsuario,self).get_context_data(**kwargs)
+            usuario = get_object_or_404(Usuario, id=self.request.user.id)
+            vehiculo = Vehiculo.objects.filter(id_usuario=usuario).first()
+            context['usuario'] = usuario
+            context['vehiculo'] = vehiculo
+            print(context)
+            return context
 
 def editar_mi_usuario(request):
     user=get_object_or_404(Usuario,id=request.user.id)

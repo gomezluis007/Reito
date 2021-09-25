@@ -2,12 +2,9 @@ from usuarios.models import Usuario
 from .models import Viaje, Destino
 from reservas.models import Reserva
 from django.shortcuts import get_object_or_404, redirect, render
-
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
-
 from django.urls import reverse_lazy
-
 from .forms import DestinoForm, ViajeForm
 
 def index(request):
@@ -33,8 +30,18 @@ class NuevoDestino(CreateView):
 
 def detalle_viaje(request, pk):
     viaje = get_object_or_404(Viaje, id=pk)
+
+    reservas = Reserva.objects.filter(viaje = viaje).exclude(estado = False)
+
+    viajeros = []
+
+    for reserva in reservas:
+        viajero = Usuario.objects.get(id=reserva.usuario.id)
+        viajeros.append(viajero)
+
     context={
-        'viaje':viaje
+        'viaje':viaje,
+        'viajeros':viajeros
     }
     return render(request, "detalle_viaje.html", context)
 

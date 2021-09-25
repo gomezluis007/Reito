@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, render
+from django.views.generic.detail import DetailView
 from .models import Vehiculo
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from .forms import VehiculosForm
@@ -25,6 +26,17 @@ class VehiculoEliminar(DeleteView):
     model = Vehiculo
     success_url = reverse_lazy('ususrios:ver_mi_cuenta')
 
-class VehiculoDetalle(DeleteView):
+class VehiculoDetalle(DetailView):
     model = Vehiculo
+    form_class = VehiculosForm
+    context_object_name = 'vehiculo'
+    template_name = "detalle_vehiculo.html"
+
+    
+
+    
+
+    
+
+    
 
