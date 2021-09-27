@@ -1,10 +1,12 @@
+from django.contrib import messages
 from usuarios.models import Usuario
+from vehiculos.models import Vehiculo
 from .models import Viaje, Destino
 from reservas.models import Reserva
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
-from django.http import JsonResponse
+from django.http import JsonResponse, request
 from django.core import serializers
 from django.urls import reverse_lazy
 from .forms import DestinoForm, ViajeForm
@@ -14,15 +16,35 @@ def index(request):
 
 class NuevoViaje(CreateView):
     model = Viaje
-    #extra_context = {'':''}
     template_name="nuevo.html"
     form_class = ViajeForm
     success_url = reverse_lazy('viajes:index')
-
+    
     def form_valid(self, form):
         usuario = get_object_or_404(Usuario, id=self.request.user.id)
         form.instance.conductor = usuario
         return super().form_valid(form)
+
+def nuevo_viaje(request):
+    usuario = get_object_or_404(Usuario, id=request.user.id)
+    if request.method == "POST":
+        vehiculo = Vehiculo.objects.filter(id_usuario = request.user.id)
+        if (vehiculo.count() > 0):
+            form = ViajeForm(request.POST)
+            form.instance.conductor = usuario
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Se ha creado con exito tu viaje.")
+                return redirect('viajes:index')
+        else:
+            messages.error(request, "Aun no tienes un vehiculo para realizar el viaje")
+            return redirect('viajes:index')
+
+    form = ViajeForm()
+    context = {
+        "form":form
+    }
+    return render(request, "nuevo.html", context)
 
 class NuevoDestino(CreateView):
     model = Destino
