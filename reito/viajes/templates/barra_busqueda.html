@@ -1,0 +1,52 @@
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/@trevoreyre/autocomplete-js/dist/style.css" />
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+</head>
+
+    <div class="container mt-5 pt-5 col-sm-4 col-md-6 col-lg-4 center" style="position:absolute; left:35%">
+        <div id="autocomplete" class="autocomplete">
+            <input placeholder="Escribe tu destino" class="autocomplete-input" />
+            <ul class="autocomplete-result-list"></ul>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
+    <script>
+        new Autocomplete('#autocomplete', {
+
+            search: input => {
+                const url = `/buscar-destinos/?destino=${(input)}`
+                return new Promise(resolve => {
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(data => {
+                            resolve(data.data)
+                        })
+                })
+            },
+            
+
+
+            renderResult: (result, props) => {
+                return `
+      <li ${props}>
+        <div class="wiki-title">
+          ${result.nombre}
+        </div>
+        
+      </li>
+    `
+            },
+
+            getResultValue: result => result.nombre,
+            onSubmit: result => {
+                window.open(`/buscar-viajes/${(result.id)}`)
+            }
+        })
+    </script>

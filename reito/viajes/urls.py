@@ -11,5 +11,7 @@ urlpatterns = [
     path('eliminar/<int:pk>', views.EliminarViaje.as_view(), name="eliminar"),
     path('', views.index, name="index"),
     path('detalle-v-viajero/<int:pk>', views.DetalleViajeViajero.as_view(), name="detalle_viaje_viajero"),
+    path('buscar-destinos/', views.buscar_destinos,name="buscar_destinos"),
+    path('buscar-viajes/<int:pk>', views.buscar_viajes,name="buscar_viajes"),
     
 ]

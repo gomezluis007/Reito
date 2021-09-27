@@ -4,6 +4,8 @@ from reservas.models import Reserva
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
+from django.http import JsonResponse
+from django.core import serializers
 from django.urls import reverse_lazy
 from .forms import DestinoForm, ViajeForm
 
@@ -65,3 +67,29 @@ class DetalleViajeViajero(DetailView):
         if(reservas):
             context['tiene_reserva'] = True
         return context
+
+def buscar_destinos(request):
+    destino=request.GET.get('destino')
+    destinos=[]
+    if destino:
+        destinos_encontrados=Destino.objects.filter(nombre__icontains=destino).values("id","nombre")
+        for d in destinos_encontrados:
+            destinos.append(d)
+    return JsonResponse({'status' : 200 , 'data' : destinos})
+
+def buscar_viajes(request, pk):
+    destino_encontrado=get_object_or_404(Destino,id=pk)
+    lista_viajes=Viaje.objects.filter(destino=destino_encontrado)
+    viajes=[]
+    for viaje in lista_viajes:
+        reservas=len(Reserva.objects.filter(viaje=viaje.id))
+        if viaje.asientos-reservas>0:
+            viajes.append(viaje)
+    context={
+        "destino":destino_encontrado
+    }
+    if(len(viajes)>0):
+        context['viajes']=viajes
+    
+    return render(request,"lista_viajes.html",context)
+

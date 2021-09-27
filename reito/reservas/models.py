@@ -8,4 +8,4 @@ class Reserva(models.Model):
     estado = models.BooleanField(verbose_name="Estado", default=False)
 
     def __str__(self):
-        return self.viaje + self.usuario
+        return str(self.viaje) + " - " + str(self.usuario)
