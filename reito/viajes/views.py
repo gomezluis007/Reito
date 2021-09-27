@@ -20,6 +20,7 @@ class NuevoViaje(CreateView):
     template_name="nuevo.html"
     form_class = ViajeForm
     success_url = reverse_lazy('viajes:index')
+    
     def form_valid(self, form):
         usuario = get_object_or_404(Usuario, id=self.request.user.id)
         form.instance.conductor = usuario
@@ -34,10 +35,12 @@ class NuevoViaje(CreateView):
     #         return redirect('viajes:index')
 
 def nuevo_viaje(request):
+    usuario = get_object_or_404(Usuario, id=request.user.id)
     if request.method == "POST":
         vehiculo = Vehiculo.objects.filter(id_usuario = request.user.id)
         if (vehiculo.count() > 0):
             form = ViajeForm(request.POST)
+            form.instance.conductor = usuario
             if form.is_valid():
                 form.save()
                 messages.success(request, "Se ha creado con exito tu viaje.")
