@@ -35,8 +35,8 @@ class NuevoViaje(CreateView):
 
 def nuevo_viaje(request):
     if request.method == "POST":
-        vehiculo = Vehiculo.objects.get(id_usuario = request.user.id)
-        if (vehiculo):
+        vehiculo = Vehiculo.objects.filter(id_usuario = request.user.id)
+        if (vehiculo.count() > 0):
             form = ViajeForm(request.POST)
             if form.is_valid():
                 form.save()
