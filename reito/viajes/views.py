@@ -16,7 +16,6 @@ def index(request):
 
 class NuevoViaje(CreateView):
     model = Viaje
-    #extra_context = {'':''}
     template_name="nuevo.html"
     form_class = ViajeForm
     success_url = reverse_lazy('viajes:index')
@@ -25,14 +24,6 @@ class NuevoViaje(CreateView):
         usuario = get_object_or_404(Usuario, id=self.request.user.id)
         form.instance.conductor = usuario
         return super().form_valid(form)
-
-    # def validar_vehiculo(self):
-    #     vehiculo = Vehiculo.objects.get(id_usuario = self.request.user.id)
-    #     if (vehiculo):
-    #         pass
-    #     else:
-    #         messages.error(request, "Aun no tienes un vehiculo para realizar el viaje")
-    #         return redirect('viajes:index')
 
 def nuevo_viaje(request):
     usuario = get_object_or_404(Usuario, id=request.user.id)
