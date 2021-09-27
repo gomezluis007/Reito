@@ -48,4 +48,29 @@
 </table>
 <br>
 <hr>
+
+
+<h1 class="text-center">Reservas pendientes</h1>
+<br>
+<hr>
+<table class="table">
+  <thead>
+      <th>Nombre</th>
+      <th>Acciones</th>
+  </thead>
+  <tbody>
+      {% for viajero in viajeros_pendientes %}
+      <tr>
+          <td>{{viajero}}</td>
+          </td>
+          <td>
+              <!-- acciones -->
+              
+          </td>
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+<br>
+<hr>
 {% endblock body %}
