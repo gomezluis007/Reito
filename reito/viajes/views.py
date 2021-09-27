@@ -26,6 +26,7 @@ class NuevoDestino(CreateView):
     model = Destino
     #extra_context = {'':''}
     form_class = DestinoForm
+    template_name = "nuevo_destino.html"
     success_url = reverse_lazy('viajes:detalle_destino')
 
 def detalle_viaje(request, pk):
