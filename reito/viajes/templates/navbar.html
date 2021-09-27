@@ -13,7 +13,7 @@
 
         {% if user.is_authenticated %}
             <div class="d-flex justify-content-center">
-                <a class="navbar-brand fs-2">
+                <a href="{% url 'viajes:index' %}" class="navbar-brand fs-2">
                     Reito
                 </a>
             </div>
@@ -21,17 +21,20 @@
 
         <div class="d-flex justify-content-end">
             {% if user.is_authenticated %}
-                <a class="navbar-brand">
+                <a class="nav-link">
                     {{ user.username }}
                 </a>
-                <a class="navbar-brand" href="{%url 'usuarios:logout'%}">
+                <a class="nav-link" href="{% url 'usuarios:logout' %}">
+                    <span class="fas fa-sign-in-alt"></span>
                     Cerrar sesi&oacute;n
                 </a>
             {% else %}
-                <a class="navbar-brand" href="{% url 'usuarios:login' %}">
+                <a class="nav-link" href="{% url 'usuarios:login' %}">
+                    <span class="fas fa-user"></span>
                     Iniciar sesi&oacute;n
                 </a>
-                <a class="navbar-brand" href="{% url 'usuarios:signup' %}">
+                <a class="nav-link" href="{% url 'usuarios:signup' %}">
+                    <span class="fas fa-user-plus"></span>
                     Crear cuenta
                 </a>
             {% endif %}
