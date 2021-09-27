@@ -55,29 +55,38 @@ class NuevoDestino(CreateView):
 
 def detalle_viaje(request, pk):
     viaje = get_object_or_404(Viaje, id=pk)
+    usuario = get_object_or_404(Usuario, id=viaje.conductor.id)
 
-    reservas = Reserva.objects.filter(viaje = viaje).exclude(estado = False)
+    if(request.user.id == usuario.id):
+        reservas = Reserva.objects.filter(viaje = viaje).exclude(estado = False)
+        viajeros = []
 
-    viajeros = []
+        for reserva in reservas:
+            viajero = Usuario.objects.get(id=reserva.usuario.id)
+            viajeros.append(viajero)
 
-    for reserva in reservas:
-        viajero = Usuario.objects.get(id=reserva.usuario.id)
-        viajeros.append(viajero)
+        reservas_pendientes = Reserva.objects.filter(viaje = viaje).exclude(estado = True)
 
-    reservas_pendientes = Reserva.objects.filter(viaje = viaje).exclude(estado = True)
+        posibles_viajeros = []
 
-    posibles_viajeros = []
+        for reserva in reservas_pendientes:
+            viajero = Usuario.objects.get(id=reserva.usuario.id)
+            posibles_viajeros.append(viajero)
 
-    for reserva in reservas_pendientes:
-        viajero = Usuario.objects.get(id=reserva.usuario.id)
-        posibles_viajeros.append(viajero)
+        context={
+            'viaje':viaje,
+            'viajeros':viajeros,
+            'viajeros_pendientes':posibles_viajeros
+        }
+        return render(request, "detalle_viaje.html", context)
 
-    context={
-        'viaje':viaje,
-        'viajeros':viajeros,
-        'viajeros_pendientes':posibles_viajeros
-    }
-    return render(request, "detalle_viaje.html", context)
+    else:
+        reservas = Reserva.objects.filter(usuario=request.user.id, viaje=pk)
+        context = {}
+        if(reservas):
+            context['tiene_reserva'] = True
+        context['viaje'] = viaje
+        return render(request, "detalle_viaje_viajero.html", context)
 
 class EditarViaje(UpdateView):
     model = Viaje
@@ -88,17 +97,6 @@ class EditarViaje(UpdateView):
 class EliminarViaje(DeleteView):
     model = Viaje
     success_url = reverse_lazy('viajes:nuevo')
-
-class DetalleViajeViajero(DetailView):
-    model = Viaje
-    template_name="detalle_viaje_viajero.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(DetalleViajeViajero,self).get_context_data(**kwargs)
-        reservas = Reserva.objects.filter(usuario=self.request.user.id, viaje=self.kwargs.get('pk'))
-        if(reservas):
-            context['tiene_reserva'] = True
-        return context
 
 def buscar_destinos(request):
     destino=request.GET.get('destino')

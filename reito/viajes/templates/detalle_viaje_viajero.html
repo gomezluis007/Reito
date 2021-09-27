@@ -13,24 +13,24 @@
 <div class="container col-sm-11 col-md-9 col-lg-5">
     <div class="card">
         <div class="card-header text-center">
-            <h1 class="card-title">{{object.destino}}</h1>
-            <h5 class="card-title">{{object.fecha}}</h5>
+            <h1 class="card-title">{{viaje.destino}}</h1>
+            <h5 class="card-title">{{viaje.fecha}}</h5>
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">{{object.hora}}</li>
-            <li class="list-group-item">${{object.precio}}</li>
-            <li class="list-group-item">{{object.asientos}} asientos disponibles</li>
-            <li class="list-group-item">{{object.conductor}}</li>
+            <li class="list-group-item">{{viaje.hora}}</li>
+            <li class="list-group-item">${{viaje.precio}}</li>
+            <li class="list-group-item">{{viaje.asientos}} asientos disponibles</li>
+            <li class="list-group-item">{{viaje.conductor}}</li>
         </ul>
         
         <div class="card-body">
-            <p class="card-text">{{object.descripcion}}</p>
+            <p class="card-text">{{viaje.descripcion}}</p>
         </div>
         <div class="card-footer text-muted text-center">
             {% if tiene_reserva %}
-                <a class="btn boton-negativo" href="{% url 'reservas:cancelar' user.id object.id %}">Cancelar</a>
+                <a class="btn boton-negativo" href="{% url 'reservas:cancelar' user.id viaje.id %}">Cancelar</a>
             {% else %}
-                <a class="btn boton" href="{% url 'reservas:nueva' user.id object.id %}">Reservar</a>
+                <a class="btn boton" href="{% url 'reservas:nueva' user.id viaje.id %}">Reservar</a>
             {% endif %}
         </div>
     </div>
