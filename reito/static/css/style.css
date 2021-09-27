@@ -111,5 +111,36 @@
     color:white;
 }
 
+@media (min-width: 990px) {
+    .busqueda {
+        position:absolute; 
+        left:30%
+    }
+}
 
+@media (max-width: 989px) {
+    .busqueda {
+        position:absolute; 
+        left:25%
+    }
+}
+
+@media (max-width: 767px) {
+    .busqueda {
+        position:absolute; 
+        left:15%
+    }
+}
+
+@media (max-width: 340px) {
+    .busqueda {
+        position:absolute; 
+        left:5%
+    }
+}
+
+.destino-item:hover {
+    background:#3A606E; 
+    color:white;
+}
 

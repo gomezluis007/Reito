@@ -9,7 +9,8 @@
 
 </head>
 
-    <div class="container mt-5 pt-5 col-sm-4 col-md-6 col-lg-4 center" style="position:absolute; left:35%">
+    <div class="container mt-5 pt-5 col-sm-8 col-md-6 col-lg-4 center busqueda" >
+        <div class="row"></div>
         <div id="autocomplete" class="autocomplete">
             <input placeholder="Escribe tu destino" class="autocomplete-input" />
             <ul class="autocomplete-result-list"></ul>
@@ -46,7 +47,7 @@
 
             getResultValue: result => result.nombre,
             onSubmit: result => {
-                window.open(`/buscar-viajes/${(result.id)}`)
+                window.open(`/buscar-viajes/${(result.id)}`, "_self")
             }
         })
     </script>
