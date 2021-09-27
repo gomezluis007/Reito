@@ -52,3 +52,10 @@ def editar_mi_usuario(request):
         "form":form
     }
     return render(request,"editar_usuarios.html",context)
+
+def ver_info_pasajero(request, pk):
+    user = get_object_or_404(Usuario,id=pk)
+    context= {
+        'usuario':user
+    }
+    return render(request,'ver_info_pasajero.html',context)
