@@ -28,7 +28,7 @@
         </div>
         <div class="card-footer text-muted text-center">
             {% if tiene_reserva %}
-                <a class="btn boton-negativo" href="#">Cancelar</a>
+                <a class="btn boton-negativo" href="{% url 'reservas:cancelar' user.id object.id %}">Cancelar</a>
             {% else %}
                 <a class="btn boton" href="{% url 'reservas:nueva' user.id object.id %}">Reservar</a>
             {% endif %}

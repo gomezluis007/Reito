@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from usuarios.models import Usuario
 from viajes.models import Viaje
@@ -9,6 +9,11 @@ def nueva_reserva(request, user_pk, viaje_pk):
     if(user_pk and viaje_pk):
         viaje = Viaje.objects.get(id=viaje_pk)
         usuario = Usuario.objects.get(id=user_pk)
+        conductor = get_object_or_404(Usuario, id=viaje.conductor.id)
+
+        if(conductor.id == request.user.id):
+            messages.error(request, "No puedes reservar en tu propio viaje")
+            return redirect('viajes:index')
 
         if(viaje.asientos > 0):
             reserva = Reserva.objects.create(viaje=viaje, usuario=usuario)
@@ -17,4 +22,24 @@ def nueva_reserva(request, user_pk, viaje_pk):
             return redirect('viajes:index')
         else:
             messages.error(request, "Ya no hay asientos disponibles en este viaje")
+            return redirect('viajes:index')
+
+def cancelar_reserva(request, user_pk, viaje_pk):
+    if(user_pk and viaje_pk):
+        reserva = get_object_or_404(Reserva, usuario=user_pk, viaje=viaje_pk)
+        viaje = get_object_or_404(Viaje, id=viaje_pk)
+        
+        if(reserva and viaje):
+            if(reserva.estado):
+                viaje.asientos += 1
+                viaje.save()
+                reserva.delete()
+                messages.success(request, "Haz cancelado tu reserva")
+                return redirect('viajes:index')
+            else:
+                reserva.delete()
+                messages.success(request, "Haz cancelado tu reserva")
+                return redirect('viajes:index')
+        else:
+            messages.error(request, "No fue posible cancelar la reserva")
             return redirect('viajes:index')
