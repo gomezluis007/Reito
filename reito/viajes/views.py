@@ -42,9 +42,18 @@ def detalle_viaje(request, pk):
         viajero = Usuario.objects.get(id=reserva.usuario.id)
         viajeros.append(viajero)
 
+    reservas_pendientes = Reserva.objects.filter(viaje = viaje).exclude(estado = True)
+
+    posibles_viajeros = []
+
+    for reserva in reservas_pendientes:
+        viajero = Usuario.objects.get(id=reserva.usuario.id)
+        posibles_viajeros.append(viajero)
+
     context={
         'viaje':viaje,
-        'viajeros':viajeros
+        'viajeros':viajeros,
+        'viajeros_pendientes':posibles_viajeros
     }
     return render(request, "detalle_viaje.html", context)
 
