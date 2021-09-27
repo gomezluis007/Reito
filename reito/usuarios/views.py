@@ -23,22 +23,15 @@ class LoginUsuario(LoginView):
 
 class LogoutUsuario(LogoutView):
     pass
+
 def ver_mi_usuario(request):
-    user=request.user
-    return redirect("usuarios:ver_usuario", pk=user.id)
-
-class VerUsuario(DetailView):
-    model=Usuario
-    template_name="detalle_usuarios.html"
-
-    def get_context_data(self, **kwargs):
-            context = super(VerUsuario,self).get_context_data(**kwargs)
-            usuario = get_object_or_404(Usuario, id=self.request.user.id)
-            vehiculo = Vehiculo.objects.filter(id_usuario=usuario).first()
-            context['usuario'] = usuario
-            context['vehiculo'] = vehiculo
-            print(context)
-            return context
+    usuario = get_object_or_404(Usuario, id=request.user.id)
+    vehiculo = Vehiculo.objects.filter(id_usuario=usuario).first()
+    context={
+        'usuario':usuario,
+        'vehiculo':vehiculo
+    }
+    return render(request,"detalle_usuarios.html", context)
 
 def editar_mi_usuario(request):
     user=get_object_or_404(Usuario,id=request.user.id)
@@ -46,7 +39,7 @@ def editar_mi_usuario(request):
         form=EditarUsuarioForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
-            return redirect("usuarios:ver_usuario", pk=user.id)
+            return redirect("usuarios:ver_mi_cuenta")
     form=EditarUsuarioForm(instance=user)
     context={
         "form":form

@@ -21,7 +21,7 @@
 
         <div class="d-flex justify-content-end">
             {% if user.is_authenticated %}
-                <a class="nav-link">
+                <a class="nav-link" href="{% url 'usuarios:ver_mi_cuenta' %}">
                     {{ user.username }}
                 </a>
                 <a class="nav-link" href="{% url 'usuarios:logout' %}">

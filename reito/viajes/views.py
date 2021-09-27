@@ -92,14 +92,12 @@ def buscar_viajes(request, pk):
     lista_viajes=Viaje.objects.filter(destino=destino_encontrado)
     viajes=[]
     for viaje in lista_viajes:
-        reservas=len(Reserva.objects.filter(viaje=viaje.id))
-        if viaje.asientos-reservas>0:
+        if viaje.asientos>0:
             viajes.append(viaje)
     context={
         "destino":destino_encontrado
     }
     if(len(viajes)>0):
         context['viajes']=viajes
-    
     return render(request,"lista_viajes.html",context)
 
