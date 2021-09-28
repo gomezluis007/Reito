@@ -10,7 +10,7 @@ class UsuarioForm(forms.ModelForm):
             'username':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Username'}),
             'first_name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Nombre(s)'}),
             'last_name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Apellidos'}),
-            'email':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Correo'}),
+            'email':forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Correo'}),
             'password':forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Contraseña'}),
             'telefono':forms.NumberInput(attrs={'class':'form-control','placeholder':'Telefono'})
         }
@@ -21,6 +21,9 @@ class UsuarioForm(forms.ModelForm):
             'email': 'Correo',
             'password':'Contraseña',
             'telefono':'Telefono'
+        }
+        help_texts = {
+            'username': None,
         }
 
     def save(self, commit=True):
