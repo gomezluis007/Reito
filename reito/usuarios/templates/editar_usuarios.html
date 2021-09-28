@@ -8,25 +8,18 @@ Editar cuenta
 {% block body %}
 
 <div class="container bootstrap snippet">
-    <div class="row">
-    	<div class="col-sm-9">
-            <div class="tab-content">
-                <div class="tab-pane active" id="home">
-                    <div class="form-group">
-                        <div class="col-xs-6">
-                            <form method="post">
-                                {% csrf_token %}
-                                {% for field in form %}
-                                    <label for="{{field.name}}"><h4>{{field.label}}</h4></label>
-                                    <input class="form-control" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
-                                {% endfor %}
-                                <br>
-                                <button type="submit" style="background:#17C3B2; color:white;" class="btn">Guardar cambios</button>
-                            </form>
-                        </div>
-                    </div>
-                </div><!--/tab-pane-->
-            </div><!--/tab-content-->
+    <h1 class="text-center">Editar perfil</h1>
+    <div class="row justify-content-center align-items-center">
+    	<div class="col col-sm-8 col-md-6 col-lg-5">
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <label for="{{field.name}}" class="form-label">{{field.label}}</label>
+                    <input class="form-control" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
+                {% endfor %}
+                <br>
+                <button type="submit" class="btn boton">Guardar cambios</button>
+            </form>
         </div><!--/col-9-->
     </div><!--/row-->
 </div>
