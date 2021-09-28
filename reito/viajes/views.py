@@ -121,3 +121,13 @@ def buscar_viajes(request, pk):
         context['viajes']=viajes
     return render(request,"lista_viajes.html",context)
 
+def ver_viajes(request):
+    usuario = get_object_or_404(Usuario,id = request.user.id)
+    reservas = Reserva.objects.filter(usuario=usuario)
+    viajes = Viaje.objects.filter(conductor = usuario)
+    context = {
+        'reservas':reservas,
+        'viajes':viajes
+    }
+    return render(request, 'ver_viajes.html',context)
+
