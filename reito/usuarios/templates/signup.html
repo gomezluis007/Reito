@@ -12,8 +12,6 @@
             <div class="account-wall">
                 <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120" alt="">
                 <form method="post" class="form-signin" enctype="multipart/form-data">
-                    <h5 class="text-center text-danger"><strong>Importante</strong></h4>
-                    <h5 class="text-center">No podr&aacute;s entrar a tu cuenta hasta que tu registro sea validado, te notificaremos por medio del correo elect&oacute;nico brindado.</h5>
                     {% csrf_token %}
                     {{ form.as_p }}
                     <!-- <a href="#" class="pull-right need-help">¿Necesita ayuda? </a><span class="clearfix"></span> -->

@@ -14,6 +14,14 @@ class UsuarioForm(forms.ModelForm):
             'password':forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Contraseña'}),
             'telefono':forms.NumberInput(attrs={'class':'form-control','placeholder':'Telefono'})
         }
+        labels = {
+            'username': 'Nombre de usuario',
+            'first_name': "Nombre(s)",
+            'last_name': 'Apellidos',
+            'email': 'Correo',
+            'password':'Contraseña',
+            'telefono':'Telefono'
+        }
 
     def save(self, commit=True):
         user = super(UsuarioForm,self).save( commit=False)
