@@ -10,7 +10,12 @@ class ViajeForm(forms.ModelForm):
         fields = 'destino', 'fecha', 'hora', 'asientos', 'precio', 'descripcion'
 
         widgets = {
-            'destino':forms.Select(attrs={'class':'form-control'})
+            'destino':forms.Select(attrs={'class':'form-control'}),
+            'fecha':forms.DateInput(attrs={'class':'form-control'}),
+            'hora':forms.TimeInput(attrs={'class':'form-control', 'placeholder':'20:00'}),
+            'asientos':forms.NumberInput(attrs={'class':'form-control'}),
+            'precio':forms.NumberInput(attrs={'class':'form-control'}),
+            'descripcion':forms.Textarea(attrs={'class':'form-control'}),
         }
 
 class DestinoForm(forms.ModelForm):

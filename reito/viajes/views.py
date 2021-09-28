@@ -38,7 +38,7 @@ def nuevo_viaje(request):
                 return redirect('viajes:index')
         else:
             messages.error(request, "Aun no tienes un vehiculo para realizar el viaje")
-            return redirect('viajes:index')
+            return redirect('viajes:nuevo')
 
     form = ViajeForm()
     context = {
@@ -51,7 +51,7 @@ class NuevoDestino(CreateView):
     #extra_context = {'':''}
     form_class = DestinoForm
     template_name = "nuevo_destino.html"
-    success_url = reverse_lazy('viajes:detalle_destino')
+    success_url = reverse_lazy('viajes:nuevo')
 
 def detalle_viaje(request, pk):
     viaje = get_object_or_404(Viaje, id=pk)
