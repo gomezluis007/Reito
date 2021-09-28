@@ -28,14 +28,21 @@ class NuevoViaje(CreateView):
 def nuevo_viaje(request):
     usuario = get_object_or_404(Usuario, id=request.user.id)
     if request.method == "POST":
-        vehiculo = Vehiculo.objects.filter(id_usuario = request.user.id)
-        if (vehiculo.count() > 0):
+        vehiculos = Vehiculo.objects.filter(id_usuario = request.user.id)
+        if (vehiculos.count() > 0):
             form = ViajeForm(request.POST)
             form.instance.conductor = usuario
-            if form.is_valid():
+
+            capacidad = int(form.data['asientos'])
+            asientos_publicados = vehiculos[0].asientos
+
+            if form.is_valid() and asientos_publicados >= capacidad:
                 form.save()
                 messages.success(request, "Se ha creado con exito tu viaje.")
                 return redirect('viajes:index')
+            else:
+                messages.error(request, "Los datos ingresados no son validos")
+                return redirect('viajes:nuevo')
         else:
             messages.error(request, "Aun no tienes un vehiculo para realizar el viaje")
             return redirect('viajes:nuevo')
