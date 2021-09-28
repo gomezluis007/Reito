@@ -1,0 +1,67 @@
+{% extends 'base1.html' %}
+{% load static %}
+
+{% block title %}
+  Mis Reitos
+{% endblock title %}
+
+{% block body %}
+
+<!-- <h1 class="text-center">Viajes disponibles para {{destino}}</h1> -->
+<br><br>
+<h1 class = "text-center"> Mis reservas</h1>
+<div class="container col-sm-10 col-md-6 col-lg-4 justify-content-center align-items-center">
+    {% if reservas %}
+    <ul class="list-group list-group-flush">
+        {% for reserva in reservas %}
+            <a href="{% url 'viajes:detalle' reserva.viaje.id %}" class="border rounded-3 list-group-item list-group-item-action flex-column align-items-start destino-item">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">{{reserva.viaje.conductor}}</h5>
+                  <small>${{reserva.viaje.precio}}</small>
+                </div>
+                <div class="text-center">
+                    <h3>{{reserva.viaje.destino}}</h3>
+                </div>
+                <div>
+                    <small>{{reserva.viaje.fecha}} - {{reserva.viaje.hora}}</small>
+                </div>
+              </a>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <h2>Lo lamento, no hay viajes disponibles en este momento.</h2>
+    {% endif %}
+</div>
+<br><br>
+<h1 class = "text-center"> Mis Reitos</h1>
+<div class="container col-sm-10 col-md-6 col-lg-4 justify-content-center align-items-center">
+    <br>
+    <div class="container col-sm-10 col-md-6 col-lg-4 justify-content-center align-items-center">
+        <a class= "btn boton text-center" href="{url 'viajes:nuevo'}">Crear nuevo Reito</a>
+    </div>
+    <br>
+    {% if viajes %}
+    <ul class="list-group list-group-flush">
+        {% for viaje in viajes %}
+            <a href="{% url 'viajes:detalle' viaje.id %}" class="border rounded-3 list-group-item list-group-item-action flex-column align-items-start destino-item">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1"></h5>
+                    <small>${{viaje.precio}}</small>
+                </div>
+                <div class="text-center">
+                    <h3>{{viaje.destino}}</h3>
+                </div>
+                <div>
+                    <small>{{viaje.fecha}} - {{viaje.hora}}</small>
+                </div>
+              </a>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <h2>Lo lamento, no hay Reitos creados en este momento.</h2>
+    {% endif %}
+
+    
+</div>
+
+{% endblock body %}
