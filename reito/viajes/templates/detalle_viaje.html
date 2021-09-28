@@ -67,8 +67,7 @@
           <td>{{viajero}}</td>
         </td>
         <td>
-          <!-- acciones -->
-          
+          <a class="btn boton" href="{% url 'usuarios:ver_info_pas' viajero.id%}" >Ver informacion</a>
         </td>
       </tr>
       {% endfor %}
