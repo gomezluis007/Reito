@@ -43,3 +43,15 @@ def cancelar_reserva(request, user_pk, viaje_pk):
         else:
             messages.error(request, "No fue posible cancelar la reserva")
             return redirect('viajes:index')
+
+def aceptar_reserva(request,user_pk,viaje_pk):
+    viaje = Viaje.objects.get(id=viaje_pk)
+    usuario = Usuario.objects.get(id=user_pk)
+    reserva = Reserva.objects.get(viaje=viaje,usuario=usuario)
+    reserva.estado = True
+    reserva.save()
+    viaje.asientos -= 1
+    viaje.save()
+    messages.success(request, "Pasajero aceptado correctamente")
+    return redirect('viajes:detalle',pk=viaje.id)
+    
