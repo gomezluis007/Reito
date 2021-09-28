@@ -12,6 +12,6 @@ class VehiculosForm(forms.ModelForm):
             'modelo': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Aveo'}),
             'marca': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Chevrolet'}),
             'matricula': forms.TextInput(attrs={'class':'form-control', 'placeholder':'AAA-AAA'}),
-            'asientos': forms.NumberInput(),
+            'asientos': forms.NumberInput(attrs={'class':'form-control', 'placeholder':'2'}),
             'descripcion': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Describa su auto'}),
         }
