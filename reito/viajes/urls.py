@@ -12,5 +12,5 @@ urlpatterns = [
     path('', views.index, name="index"),
     path('buscar-destinos/', views.buscar_destinos,name="buscar_destinos"),
     path('buscar-viajes/<int:pk>', views.buscar_viajes,name="buscar_viajes"),
-    
+    path('ver-viajes/',views.buscar_viajes,name = 'ver_viajes'),   
 ]
