@@ -68,6 +68,7 @@
         </td>
         <td>
           <a class="btn boton" href="{% url 'usuarios:ver_info_pas' viajero.id%}" >Ver informacion</a>
+          <a class ="btn boton" href="{%url 'reservas:aceptar' viajero.id viaje.id  %}">Aceptar </a>
         </td>
       </tr>
       {% endfor %}
