@@ -8,8 +8,9 @@
 {% block body %}
 
 <!-- <h1 class="text-center">Viajes disponibles para {{destino}}</h1> -->
-<br><br>
+<br>
 <h1 class = "text-center"> Mis reservas</h1>
+<br>
 <div class="container col-sm-10 col-md-6 col-lg-4 justify-content-center align-items-center">
     {% if reservas %}
     <ul class="list-group list-group-flush">
@@ -25,19 +26,19 @@
                 <div>
                     <small>{{reserva.viaje.fecha}} - {{reserva.viaje.hora}}</small>
                 </div>
-              </a>
+            </a>
         {% endfor %}
     </ul>
     {% else %}
-    <h2>Lo lamento, no hay viajes disponibles en este momento.</h2>
+        <h4>Lo lamento, no haz hecho reservas.</h4>
     {% endif %}
 </div>
 <br><br>
 <h1 class = "text-center"> Mis Reitos</h1>
 <div class="container col-sm-10 col-md-6 col-lg-4 justify-content-center align-items-center">
     <br>
-    <div class="container col-sm-10 col-md-6 col-lg-4 justify-content-center align-items-center">
-        <a class= "btn boton text-center" href="{url 'viajes:nuevo'}">Crear nuevo Reito</a>
+    <div class="row col-sm-10 col-md-6 col-lg-4 mx-auto">
+        <a class= "btn boton" href="{% url 'viajes:nuevo' %}">Nuevo Reito</a>
     </div>
     <br>
     {% if viajes %}
@@ -58,10 +59,9 @@
         {% endfor %}
     </ul>
     {% else %}
-    <h2>Lo lamento, no hay Reitos creados en este momento.</h2>
+        <h4>Lo lamento, no haz creado Reitos.</h4>
     {% endif %}
-
-    
 </div>
+<br><br>
 
 {% endblock body %}

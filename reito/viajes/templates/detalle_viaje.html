@@ -25,56 +25,62 @@
         </div>
     </div>
 
-    <br>
-    <hr>
+    <br><br>
     
     <h1 class="text-center">Viajeros aprobados</h1>
     <br>
-    <hr>
-    <table class="table">
-      <thead>
-        <th>Nombre</th>
-        <th>Acciones</th>
-      </thead>
-      <tbody>
-        {% for viajero in viajeros %}
-        <tr>
-          <td>{{viajero}}</td>
-        </td>
-        <td>
-          <a class="btn boton" href="{% url 'usuarios:ver_info_pas' viajero.id%}" >Ver informacion</a> 
-        </td>
-        </tr>
-        {% endfor %}
-      
-      </tbody>
-    </table>
-    <br>
-    <hr>
+    <div class="container">
+      <div class="row justify-content-center align-items-center">
+        <div class="col col-sm-10 col-md-8 col-lg-6">
+          <table class="table">
+            <thead>
+              <th>Nombre</th>
+              <th>Acciones</th>
+            </thead>
+            <tbody>
+              {% for viajero in viajeros %}
+              <tr>
+                <td>{{viajero}}</td>
+              </td>
+              <td>
+                <a class="btn boton" href="{% url 'usuarios:ver_info_pas' viajero.id%}" >Ver informacion</a> 
+              </td>
+              </tr>
+              {% endfor %}
+            
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <br><br>
 
 
     <h1 class="text-center">Reservas pendientes</h1>
     <br>
-    <hr>
-    <table class="table">
-      <thead>
-        <th>Nombre</th>
-        <th>Acciones</th>
-      </thead>
-      <tbody>
-        {% for viajero in viajeros_pendientes %}
-        <tr>
-          <td>{{viajero}}</td>
-        </td>
-        <td>
-          <a class="btn boton" href="{% url 'usuarios:ver_info_pas' viajero.id%}" >Ver informacion</a>
-          <a class ="btn boton" href="{%url 'reservas:aceptar' viajero.id viaje.id  %}">Aceptar </a>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-    </table>
-    <br>
-    <hr>
+    <div class="container">
+      <div class="row justify-content-center align-items-center">
+        <div class="col col-sm-10 col-md-8 col-lg-6">
+          <table class="table ">
+            <thead>
+              <th>Nombre</th>
+              <th>Acciones</th>
+            </thead>
+            <tbody>
+              {% for viajero in viajeros_pendientes %}
+              <tr>
+                <td>{{viajero}}</td>
+              </td>
+              <td>
+                <a class="btn boton" href="{% url 'usuarios:ver_info_pas' viajero.id%}" >Ver informacion</a>
+                <a class ="btn boton" href="{%url 'reservas:aceptar' viajero.id viaje.id %}">Aceptar </a>
+              </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <br><br>
   </div>
 {% endblock body %}

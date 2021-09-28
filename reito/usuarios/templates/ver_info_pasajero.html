@@ -6,24 +6,20 @@
 {% endblock titulo %}
 
 {% block body %}
-<div class="container bootstrap snippet">
-    <div class="row">
-    	<div class="col-sm-9">
-          <div class="tab-content">
-            <div class="tab-pane active" id="home">
-                <div class="form-group">
-                    <div class="col-xs-6">
-                        <label for="fullname"><h4>Nombre completo</h4></label>
-                        <input type="text" class="form-control" name="full name" id="fullname"value="{{usuario}}" disabled>
+<div class="container">
+    <h1 class="text-center">Informaci&oacute;n de pasajero</h1>
+    <br>
+    <div class="row justify-content-center align-items-center">
+    	<div class="col col-sm-8 col-md-6 col-lg-5">
+            <div class="form-group">
+                <label for="fullname" class="form-label">Nombre completo</label>
+                <input type="text" class="form-control" name="full name" id="fullname"value="{{usuario}}" disabled>
 
-                        <label for="telefono"><h4>Telefono</h4></label>
-                        <input type="email" class="form-control" name="email" id="email"value="{{usuario.telefono}}" disabled>
-                    </div>
-                </div>
-            </div><!--/tab-pane-->
-        </div><!--/tab-content-->
-    </div><!--/col-9-->
-</div><!--/row-->
+                <label for="telefono" class="form-label">Telefono</label>
+                <input type="email" class="form-control" name="email" id="email"value="{{usuario.telefono}}" disabled>
+             </div>
+        </div><!--/col-9-->
+    </div><!--/row-->
 </div>
   
 {% endblock body %}
