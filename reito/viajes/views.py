@@ -61,6 +61,7 @@ class NuevoDestino(CreateView):
     template_name = "nuevo_destino.html"
     success_url = reverse_lazy('viajes:nuevo')
 
+@login_required
 def detalle_viaje(request, pk):
     viaje = get_object_or_404(Viaje, id=pk)
     usuario = get_object_or_404(Usuario, id=viaje.conductor.id)
