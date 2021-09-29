@@ -116,6 +116,7 @@ def buscar_destinos(request):
             destinos.append(d)
     return JsonResponse({'status' : 200 , 'data' : destinos})
 
+@login_required
 def buscar_viajes(request, pk):
     destino_encontrado=get_object_or_404(Destino,id=pk)
     lista_viajes=Viaje.objects.filter(destino=destino_encontrado)
