@@ -31,7 +31,7 @@ Nos movemos al directorio donde vamos a almacenar el proyecto, una vez ahí ejec
 ```shell
    $ git clone https://github.com/Team-ASD/Reito
 
-   $ cd Reito
+   $ cd Reito/reito/
    ```
 
 - Instalar dependencias con archivo requirements.
@@ -56,7 +56,6 @@ Una vez instaladas todas las dependencias y configurado todo lo necesario verifi
 
 - Ejecutar el sistema
 
-   ```
 Con la siguiente linea se ejecuta el sistema:
 ```shel
    $ python3 manage.py runserver 0.0.0.0:8000 
