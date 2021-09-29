@@ -3,8 +3,9 @@ from django.contrib import messages
 from usuarios.models import Usuario
 from viajes.models import Viaje
 from .models import Reserva
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def nueva_reserva(request, user_pk, viaje_pk):
     if(user_pk and viaje_pk):
         viaje = Viaje.objects.get(id=viaje_pk)
@@ -24,6 +25,7 @@ def nueva_reserva(request, user_pk, viaje_pk):
             messages.error(request, "Ya no hay asientos disponibles en este viaje")
             return redirect('viajes:index')
 
+@login_required
 def cancelar_reserva(request, user_pk, viaje_pk):
     if(user_pk and viaje_pk):
         reserva = get_object_or_404(Reserva, usuario=user_pk, viaje=viaje_pk)
@@ -44,6 +46,7 @@ def cancelar_reserva(request, user_pk, viaje_pk):
             messages.error(request, "No fue posible cancelar la reserva")
             return redirect('viajes:index')
 
+@login_required
 def aceptar_reserva(request,user_pk,viaje_pk):
     viaje = Viaje.objects.get(id=viaje_pk)
     usuario = Usuario.objects.get(id=user_pk)
