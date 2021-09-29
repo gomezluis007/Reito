@@ -11,11 +11,12 @@ from django.core import serializers
 from django.urls import reverse_lazy
 from .forms import DestinoForm, ViajeForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def index(request):
     return render(request, 'index.html')
 
-class NuevoViaje(CreateView):
+class NuevoViaje(LoginRequiredMixin, CreateView):
     model = Viaje
     template_name="nuevo.html"
     form_class = ViajeForm
@@ -26,6 +27,7 @@ class NuevoViaje(CreateView):
         form.instance.conductor = usuario
         return super().form_valid(form)
 
+@login_required
 def nuevo_viaje(request):
     usuario = get_object_or_404(Usuario, id=request.user.id)
     if request.method == "POST":
@@ -54,7 +56,7 @@ def nuevo_viaje(request):
     }
     return render(request, "nuevo.html", context)
 
-class NuevoDestino(CreateView):
+class NuevoDestino(LoginRequiredMixin, CreateView):
     model = Destino
     #extra_context = {'':''}
     form_class = DestinoForm
@@ -98,16 +100,17 @@ def detalle_viaje(request, pk):
         context['viaje'] = viaje
         return render(request, "detalle_viaje_viajero.html", context)
 
-class EditarViaje(UpdateView):
+class EditarViaje(LoginRequiredMixin, UpdateView):
     model = Viaje
     form_class = ViajeForm
     #extra_context = {'':''}
     success_url = reverse_lazy('viajes:detalle')
 
-class EliminarViaje(DeleteView):
+class EliminarViaje(LoginRequiredMixin,DeleteView):
     model = Viaje
     success_url = reverse_lazy('viajes:nuevo')
 
+@login_required
 def buscar_destinos(request):
     destino=request.GET.get('destino')
     destinos=[]
@@ -142,4 +145,3 @@ def ver_viajes(request):
         'viajes':viajes
     }
     return render(request, 'ver_viajes.html',context)
-
