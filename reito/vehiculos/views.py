@@ -5,8 +5,9 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from .forms import VehiculosForm
 from django.urls import reverse_lazy
 from usuarios.models import Usuario
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class VehiculoCrear(CreateView):
+class VehiculoCrear(LoginRequiredMixin, CreateView):
     model = Vehiculo
     form_class = VehiculosForm
     template_name = "nuevo_vehiculo.html"
@@ -26,7 +27,7 @@ class VehiculoEliminar(DeleteView):
     model = Vehiculo
     success_url = reverse_lazy('ususrios:ver_mi_cuenta')
 
-class VehiculoDetalle(DetailView):
+class VehiculoDetalle(LoginRequiredMixin, DetailView):
     model = Vehiculo
     form_class = VehiculosForm
     context_object_name = 'vehiculo'
