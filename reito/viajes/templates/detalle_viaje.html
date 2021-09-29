@@ -43,7 +43,7 @@
                 <td>{{viajero}}</td>
               </td>
               <td>
-                <a class="btn boton" href="{% url 'usuarios:ver_info_pas' viajero.id%}" >Ver informacion</a> 
+                <a class="btn boton" href="{% url 'usuarios:ver_info_pas' viajero.id viaje.id%}" >Ver informacion</a> 
               </td>
               </tr>
               {% endfor %}
@@ -71,8 +71,7 @@
                 <td>{{viajero}}</td>
               </td>
               <td>
-                <a class="btn boton" href="{% url 'usuarios:ver_info_pas' viajero.id%}" >Ver informacion</a>
-                <a class ="btn boton" href="{%url 'reservas:aceptar' viajero.id viaje.id %}">Aceptar </a>
+                <a class="btn boton" href="{% url 'usuarios:ver_info_pas' viajero.id viaje.id%}" >Ver informacion</a>
               </td>
               </tr>
               {% endfor %}

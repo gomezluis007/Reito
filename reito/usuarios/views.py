@@ -5,9 +5,11 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.detail import DetailView
 from .models import Usuario
 from .forms import EditarUsuarioForm, UsuarioForm
+from viajes.models import Viaje
+from reservas.models import Reserva
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
-
+from django.contrib.messages.views import SuccessMessageMixin
 # Create your tests here.
 
 class NuevoUsuario(CreateView):
@@ -46,9 +48,13 @@ def editar_mi_usuario(request):
     }
     return render(request,"editar_usuarios.html",context)
 
-def ver_info_pasajero(request, pk):
-    user = get_object_or_404(Usuario,id=pk)
+def ver_info_pasajero(request, user_pk,viaje_pk):
+    user = get_object_or_404(Usuario,id=user_pk)
+    viaje = get_object_or_404(Viaje,id=viaje_pk)
+    reserva = get_object_or_404(Reserva,usuario=user,viaje=viaje)
     context= {
-        'usuario':user
+        'usuario':user,
+        'viaje':viaje,
+        'reserva':reserva
     }
     return render(request,'ver_info_pasajero.html',context)
