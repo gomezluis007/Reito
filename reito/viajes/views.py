@@ -10,6 +10,7 @@ from django.http import JsonResponse, request
 from django.core import serializers
 from django.urls import reverse_lazy
 from .forms import DestinoForm, ViajeForm
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     return render(request, 'index.html')
@@ -129,6 +130,7 @@ def buscar_viajes(request, pk):
         context['viajes']=viajes
     return render(request,"lista_viajes.html",context)
 
+@login_required
 def ver_viajes(request):
     usuario = get_object_or_404(Usuario,id = request.user.id)
     reservas = Reserva.objects.filter(usuario=usuario)
