@@ -7,6 +7,7 @@ from .models import Usuario
 from .forms import EditarUsuarioForm, UsuarioForm
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.contrib.auth.decorators import login_required
 
 # Create your tests here.
 
@@ -24,6 +25,7 @@ class LoginUsuario(LoginView):
 class LogoutUsuario(LogoutView):
     pass
 
+@login_required
 def ver_mi_usuario(request):
     usuario = get_object_or_404(Usuario, id=request.user.id)
     vehiculo = Vehiculo.objects.filter(id_usuario=usuario).first()
@@ -33,6 +35,7 @@ def ver_mi_usuario(request):
     }
     return render(request,"detalle_usuarios.html", context)
 
+@login_required
 def editar_mi_usuario(request):
     user=get_object_or_404(Usuario,id=request.user.id)
     if request.method == "POST":
