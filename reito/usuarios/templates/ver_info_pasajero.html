@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block titulo %}
-    Descripcion pasajero
+    Descripci&oacute;n pasajero
 {% endblock titulo %}
 
 {% block body %}
@@ -15,7 +15,7 @@
                 <label for="fullname" class="form-label">Nombre completo</label>
                 <input type="text" class="form-control" name="full name" id="fullname"value="{{usuario}}" disabled>
 
-                <label for="telefono" class="form-label">Telefono</label>
+                <label for="telefono" class="form-label">Tel&eacute;fono</label>
                 <input type="email" class="form-control" name="email" id="email"value="{{usuario.telefono}}" disabled>
             </div>
              <br>
@@ -24,8 +24,6 @@
                     <a class ="btn boton" href="{%url 'reservas:aceptar' usuario.id viaje.id %}">Aceptar</a>
                 </div>
             {% endif %}
-                 
-             
         </div><!--/col-9-->
     </div><!--/row-->
 </div>
