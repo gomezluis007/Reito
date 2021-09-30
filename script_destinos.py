@@ -22,5 +22,5 @@ for destino in destinos_nuevos:
     if destino not in destinos_registrados_plano:
         Destino.objects.create(nombre=destino)
 
-Reserva.objects.all().delete()
-Viaje.objects.all().delete()
+# Reserva.objects.all().delete()
+# Viaje.objects.all().delete()
