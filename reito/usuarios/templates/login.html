@@ -28,11 +28,11 @@
             <!-- Login Form -->
             <form method="POST">
                 {% csrf_token %}
-                <input  required type="text" id="id_username" class="fadeIn second" name="username" placeholder="Username">
-                <input  required type="password" id="id_password" class="fadeIn third" name="password" placeholder="Password">
+                <input  required type="text" id="id_username" class="fadeIn second" name="username" placeholder="Nombre de Usuario">
+                <input  required type="password" id="id_password" class="fadeIn third" name="password" placeholder="Contraseña">
                 <button type="submit" class="btn button-login"> Login</button>
             </form>
-            <p>¿No tienes cuenta? registrate <a href="{%url 'usuarios:signup'%}">aqui</a>
+            <p>¿No tienes cuenta? Registrate <a href="{%url 'usuarios:signup'%}">aqu&iacute;</a>
             </p>
         </div>
     </div>
