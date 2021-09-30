@@ -94,7 +94,7 @@ def detalle_viaje(request, pk):
     else:
         reservas = Reserva.objects.get(usuario=request.user.id, viaje=pk)
         context = {}
-        if(reservas.estado):
+        if(reservas and reservas.estado):
             context['telefono'] = usuario.telefono
             context['tiene_reserva'] = True
         context['viaje'] = viaje
