@@ -6,7 +6,7 @@ from django.db.models.fields import CharField, DecimalField, IntegerField
 # Create your models here.
 
 class Destino(models.Model):
-    nombre = models.CharField("Nombre", max_length=50)
+    nombre = models.CharField("Nombre", max_length=200)
 
     def __str__(self):
         return self.nombre
