@@ -25,16 +25,16 @@ Detalle de cuenta
                 <label for="email" class="form-label">Correo</label>
                 <input type="email" class="form-control" name="email" id="email"value="{{usuario.email}}" disabled>
             
-                <label for="email" class="form-label">Telefono</label>
+                <label for="email" class="form-label">Tel&eacutefono</label>
                 <input type="email" class="form-control" name="email" id="email"value="{{usuario.telefono}}" disabled>
             </div>   
           <br>
           <form action="{% url 'usuarios:editar_mi_cuenta' %}" method="GET">
                 <button type="submit" class="btn boton">Editar</button>
                 {%if vehiculo %}
-                    <a href="{% url 'vehiculos:ver' vehiculo.id %}" class="boton btn"> Ver mi vehiculo</a>
+                    <a href="{% url 'vehiculos:ver' vehiculo.id %}" class="boton btn"> Ver mi veh&iacuteculo</a>
                 {%else%}
-                    <a href="{% url 'vehiculos:nuevo' %}" class="btn boton">Agregar vehiculo</a>
+                    <a href="{% url 'vehiculos:nuevo' %}" class="btn boton">Agregar veh&iacuteculo</a>
                 {%endif%}
           </form> 
         </div><!--/col-9-->
