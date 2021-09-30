@@ -92,7 +92,7 @@ def detalle_viaje(request, pk):
         return render(request, "detalle_viaje.html", context)
 
     else:
-        reservas = Reserva.objects.get(usuario=request.user.id, viaje=pk)
+        reservas = Reserva.objects.filter(usuario=request.user.id, viaje=pk).first()
         context = {}
         if(reservas and reservas.estado):
             context['telefono'] = usuario.telefono
