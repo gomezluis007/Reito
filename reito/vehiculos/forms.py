@@ -15,3 +15,10 @@ class VehiculosForm(forms.ModelForm):
             'asientos': forms.NumberInput(attrs={'class':'form-control', 'placeholder':'2'}),
             'descripcion': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Describa su auto'}),
         }
+        labels = {
+            'modelos':'Modelos',
+            'marca':'Marca',
+            'matricula':'Matrícula',
+            'asientos':'Asientos',
+            'descripcion':'Descripción'
+        }
