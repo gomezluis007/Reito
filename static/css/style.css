@@ -76,7 +76,6 @@ body {
 }
 
 .container-image-index {
-    position: relative;
     text-align: center;
     background-color: #3A606E;
 }
@@ -103,7 +102,6 @@ body {
 .image-index {
     width: 100%;
     height: auto;
-    padding-top: 20px;
 }
 
 .boton {
@@ -130,7 +128,6 @@ body {
 
 @media (min-width: 990px) {
     .busqueda {
-        position:absolute; 
         left:35%
     }
 }
