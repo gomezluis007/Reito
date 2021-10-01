@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 from django.urls.base import reverse_lazy
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '+u8(i%t)85va5b(65+4lw!+st4qd9c-4pp&e*tx(35e3&_$x7='
+SECRET_KEY = os.environ.get('SECRET_KEY',)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'reito.urls'
@@ -78,11 +80,20 @@ WSGI_APPLICATION = 'reito.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+import dj_database_url
+from decouple import config
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
 }
 
 
@@ -122,13 +133,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static/'),
-)
-
 LOGIN_URL = reverse_lazy('usuarios:login')
 LOGIN_REDIRECT_URL = reverse_lazy('viajes:index')
 LOGOUT_REDIRECT_URL = reverse_lazy('usuarios:login')
 
+STATIC_URL = '/static/'
+if DEBUG:    
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+    )
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
+
+# django_heroku.settings(locals())
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
