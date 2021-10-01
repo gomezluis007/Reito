@@ -142,5 +142,9 @@
 .destino-item:hover {
     background:#3A606E; 
     color:white;
+    margin: 10px;
+}
+.destino-item {
+    margin: 10px;
 }
 
