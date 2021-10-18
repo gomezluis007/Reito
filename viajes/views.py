@@ -107,9 +107,12 @@ class EditarViaje(LoginRequiredMixin, UpdateView):
     #extra_context = {'':''}
     success_url = reverse_lazy('viajes:detalle')
 
-class EliminarViaje(LoginRequiredMixin,DeleteView):
-    model = Viaje
-    success_url = reverse_lazy('viajes:nuevo')
+@login_required
+def cancelar_viaje(request, pk):
+    viaje = get_object_or_404(Viaje, pk)
+    viaje.delete()
+    messages.success(request, "Aun no tienes un vehículo para realizar el viaje.")
+    return redirect('viajes:ver_viajes')
 
 @login_required
 def buscar_destinos(request):
