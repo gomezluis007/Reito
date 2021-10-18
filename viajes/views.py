@@ -42,7 +42,7 @@ def nuevo_viaje(request):
             if form.is_valid() and asientos_publicados >= capacidad:
                 form.save()
                 messages.success(request, "Se ha creado con éxito tu viaje.")
-                return redirect('viajes:index')
+                return redirect('viajes:ver_viajes')
             else:
                 messages.error(request, "Los datos ingresados no son válidos.")
                 return redirect('viajes:nuevo')
