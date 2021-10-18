@@ -29,6 +29,10 @@ Editar cuenta
                     <label for="telefono" class="form-label">Tel&eacute;fono</label>
                     <input pattern="\d*" maxlength="10" minlength="10" class="form-control" name="{{form.telefono.name}}" id="{{form.telefono.name}}" value="{{form.telefono.value}}">
                     
+                    {{ form.descripcion.errors }}
+                    <label for="{{ form.descripcion.id_for_label }}">Descripci&oacute;n</label>
+                    {{ form.descripcion }}
+
                     <br>
 
                     <div class="container">
