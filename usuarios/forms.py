@@ -36,11 +36,12 @@ class UsuarioForm(forms.ModelForm):
 class EditarUsuarioForm(forms.ModelForm):
     class Meta:
         model=Usuario
-        fields=('email','telefono')
+        fields=('email','telefono','descripcion')
 
         widgets={
             'email':forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Correo'}),
-            'telefono':forms.NumberInput(attrs={'class':'form-control','placeholder':'Teléfono'})
+            'telefono':forms.NumberInput(attrs={'class':'form-control','placeholder':'Teléfono'}),
+            'descripcion':forms.Textarea(attrs={'class':'form-control', 'placeholder':'Hablanos de tí'})
         }
 
         labels = {
@@ -48,5 +49,6 @@ class EditarUsuarioForm(forms.ModelForm):
             'first_name': "Nombre(s)",
             'last_name': 'Apellidos',
             'email': 'Correo',
-            'telefono':'Teléfono'
+            'telefono':'Teléfono',
+            'descripcion':'Descripción'
         }

@@ -27,6 +27,12 @@ Detalle de cuenta
             
                 <label for="telefono" class="form-label">Tel&eacute;fono</label>
                 <input type="telefono" class="form-control" name="telefono" id="telefono"value="{{usuario.telefono}}" disabled>
+                
+                {% if usuario.descripcion %}
+                    <label for="descripcion" class="form-label">Descripci&oacute;n</label>
+                    <input type="text" class="form-control" name="descripcion" id="descripcion"value="{{usuario.descripcion}}" disabled>
+                {% endif %}
+                    
             </div>   
             <br>
 
