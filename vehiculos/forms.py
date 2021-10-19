@@ -34,5 +34,17 @@ class VehiculosForm(forms.ModelForm):
             if asientos < 1:
                 self._errors['asientos'] = self.error_class(['Los asientos deben ser un numero entero positivo'])    
 
-            
+class Vehiculos_editar(forms.ModelForm):
+    class Meta:
+        model = Vehiculo
+
+        fields= ('descripcion',)
+
+        widgets ={
+                'descripcion': forms.Textarea(attrs={'class':'form-control', 'placeholder':'Describa su auto'}),
+            }
+        labels = {
+            'descripcion':'Descripción'
+        }
+
 
