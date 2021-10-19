@@ -112,26 +112,28 @@ class EditarViaje(LoginRequiredMixin, UpdateView):
 
 @login_required
 def cancelar_viaje(request, pk):
-    viaje = get_object_or_404(Viaje, pk)
+    viaje = get_object_or_404(Viaje, id=pk)
 
+    if request.method == "POST":
     #Validacion de no poder cancelar un viaje que tiene fecha de ya realizado.
-    fecha = viaje.fecha
-    hora = viaje.hora
-    fecha_actual = datetime.now().date()
-    print(fecha_actual)
-    hora_actual = datetime.now().time()
-    print(hora_actual)
-    if fecha > fecha_actual: 
-        viaje.delete()
-        messages.success(request, "Tu viaje se ha cancelado con éxito.")
-        return redirect('viajes:ver_viajes')
-    elif fecha == fecha_actual and hora > hora_actual:
-        viaje.delete()
-        messages.success(request, "Tu viaje se ha cancelado con éxito.")
-        return redirect('viajes:ver_viajes')
-    else:
-        messages.error(request, "Este viaje no puede ser cancelado porque ya pasó su fecha de realización.")
-        return redirect('viajes:ver_viajes')
+        fecha = viaje.fecha
+        hora = viaje.hora
+        fecha_actual = datetime.now().date()
+        print(fecha_actual)
+        hora_actual = datetime.now().time()
+        print(hora_actual)
+        if fecha > fecha_actual: 
+            viaje.delete()
+            messages.success(request, "Tu viaje se ha cancelado con éxito.")
+            return redirect('viajes:ver_viajes')
+        elif fecha == fecha_actual and hora > hora_actual:
+            viaje.delete()
+            messages.success(request, "Tu viaje se ha cancelado con éxito.")
+            return redirect('viajes:ver_viajes')
+        else:
+            messages.error(request, "Este viaje no puede ser cancelado porque ya pasó su fecha de realización.")
+            return redirect('viajes:detalle', pk = pk)
+    
 
 
 @login_required

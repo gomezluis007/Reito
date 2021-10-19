@@ -1,5 +1,9 @@
 {% extends 'base1.html' %}
 
+{% load static %}
+
+
+
 
 {% block title %}
   Información del Viaje
@@ -16,7 +20,7 @@
           <ul class="list-group list-group-flush">
               <li class="list-group-item">{{viaje.hora}}</li>
               <li class="list-group-item">${{viaje.precio}}</li>
-              <li class="list-group-item">{{viaje.asientos}} asientos disponibles</li>
+              <li class="list-group-item">{{viaje.asientos}} Asientos disponibles</li>
               <li class="list-group-item">{{viaje.conductor}}</li>
           </ul>
           <div class="card-body">
@@ -30,6 +34,9 @@
     <div class="container">
       <div class="container col-sm-11 col-md-9 col-lg-5">
         <a href="javascript:history.back()" class="btn boton"> Volver Atrás</a>
+        <button onclick="muestraModal('{% url 'viajes:eliminar' viaje.id %}','{{viaje.destino}}')" type="button" class="btn boton" data-toggle="modal" data-target="#exampleModal">
+          Cancelar Reito
+        </button>
       </div>
     </div>
 
@@ -51,7 +58,7 @@
                 <td>{{viajero}}</td>
               </td>
               <td>
-                <a class="btn boton" href="{% url 'usuarios:ver_info_pas' viajero.id viaje.id%}" >Ver informaci&oacute;n</a> 
+                <a class="btn boton" href="{% url 'usuarios:ver_info_pas' viajero.id viaje.id %}" >Ver informaci&oacute;n</a> 
               </td>
               </tr>
               {% endfor %}
@@ -79,7 +86,7 @@
                 <td>{{viajero}}</td>
               </td>
               <td>
-                <a class="btn boton" href="{% url 'usuarios:ver_info_pas' viajero.id viaje.id%}" >Ver informacion</a>
+                <a class="btn boton" href="{% url 'usuarios:ver_info_pas' viajero.id viaje.id %}" >Ver informacion</a>
               </td>
               </tr>
               {% endfor %}
@@ -90,4 +97,29 @@
     </div>
     <br><br>
   </div>
+
+<!-- Modal -->
+<div class="modal hide" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Confirmación</h5>
+              <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><i class="fa"></i></button>
+          </div>
+          <div class="modal-body" id ="texto"></div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+              <form id="formEliminar" method="post">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-danger">Si</button>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+
 {% endblock body %}
+
+{% block js %}
+  <script src="{% static 'js/funciones.js' %}"></script>
+{% endblock js %}
