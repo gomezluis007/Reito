@@ -5,14 +5,14 @@ class UsuarioForm(forms.ModelForm):
     class Meta:
         model=Usuario
 
-        fields='username','first_name','last_name','email','password','telefono'
+        fields='username','first_name','last_name','email','password','telefono', 'foto'
         widgets={
             'username':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Nombre de usuario'}),
             'first_name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Nombre(s)'}),
             'last_name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Apellidos'}),
             'email':forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Correo'}),
             'password':forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Contraseña'}),
-            'telefono':forms.NumberInput(attrs={'class':'form-control','placeholder':'Teléfono'})
+            'telefono':forms.NumberInput(attrs={'class':'form-control','placeholder':'Teléfono'}),
         }
         labels = {
             'username': 'Nombre de usuario',
@@ -20,7 +20,8 @@ class UsuarioForm(forms.ModelForm):
             'last_name': 'Apellidos',
             'email': 'Correo',
             'password':'Contraseña',
-            'telefono':'Teléfono'
+            'telefono':'Teléfono',
+            'foto':'Fotografía'
         }
         help_texts = {
             'username': None,
