@@ -14,7 +14,11 @@ Crear cuenta
         <div class="col-sm-6 col-md-4 col-md-offset-4">
             <h1 class="text-center login-title"> Reg&iacute;strate</h1>
             <div class="account-wall">
-                <form method="post" class="form-signin">
+                <h5 class="text-center text-danger"><strong>Importante</strong></h4>
+                <h5 class="text-center">Tu imagen, nombre y nombre de usuario no será modificable. Ingresa datos verdaderos.</h5>
+                    
+
+                <form method="post" class="form-signin" enctype="multipart/form-data">
                     {{form.errors}}
                     {% csrf_token %}
                     <label for="username" class="form-label">Nombre de usuario</label>
@@ -35,6 +39,9 @@ Crear cuenta
                     <label for="telefono" class="form-label">Tel&eacute;fono</label>
                     <input placeholder="1234567890" pattern="\d*" maxlength="10" minlength="10" class="form-control" name="{{form.telefono.name}}" id="{{form.telefono.name}}">
                     
+                    <label for="foto" class="form-label">Imagen</label>
+                    <input type="file" name="foto" id="foto" required>
+                    <br>
                     <!-- <a href="#" class="pull-right need-help">¿Necesita ayuda? </a><span class="clearfix"></span> -->
                     <button class="btn boton" type="submit">Registrarme</button>
                 </form>

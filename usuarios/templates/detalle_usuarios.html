@@ -9,10 +9,20 @@ Detalle de cuenta
 
 
 <div class="container">
-    <h1 class="text-center"> Perfil</h1>
     <div class="row justify-content-center align-items-center">
     	<div class="col col-sm-8 col-md-6 col-lg-5">
             <div class="form-group">
+                <br>
+                <br>
+                <div class="d-flex justify-content-around">
+                    {% if usuario.foto %}
+                        <img src="{% get_media_prefix %}{{usuario.foto}}" alt="" style="height: 200px; width: 200px" class="rounded-circle">
+                    {% else %}
+                        <img src="{% get_media_prefix %}img/usuario.png" alt="" style="height: 200px; width: 200px">
+                    {% endif %}
+                </div>
+                <br>
+                <br>
                 <label for="username" class="form-label">Nombre de usuario</label>
                 <input type="text" class="form-control" name="username" id="username"value="{{usuario.username}}" disabled>
 
