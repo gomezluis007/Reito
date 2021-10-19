@@ -13,6 +13,9 @@ from .forms import DestinoForm, ViajeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from datetime import date, datetime
+
+
 def index(request):
     return render(request, 'index.html')
 
@@ -110,9 +113,22 @@ class EditarViaje(LoginRequiredMixin, UpdateView):
 @login_required
 def cancelar_viaje(request, pk):
     viaje = get_object_or_404(Viaje, pk)
-    viaje.delete()
-    messages.success(request, "Aun no tienes un vehículo para realizar el viaje.")
-    return redirect('viajes:ver_viajes')
+
+    #Validacion de no poder cancelar un viaje que tiene fecha de ya realizado.
+    fecha = viaje.fecha
+    hora = viaje.hora
+    fecha_actual = datetime.now().date()
+    print(fecha_actual)
+    hora_actual = datetime.now().time()
+    print(hora_actual)
+    if fecha < fecha_actual and hora == hora_actual:
+        viaje.delete()
+        messages.success(request, "Aun no tienes un vehículo para realizar el viaje.")
+        return redirect('viajes:ver_viajes')
+    else:
+        messages.error(request, "Este viaje no puede ser cancelado porque ya pasó su fecha de realización.")
+        return redirect('viajes:ver_viajes')
+
 
 @login_required
 def buscar_destinos(request):
