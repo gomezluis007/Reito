@@ -10,7 +10,7 @@ from reservas.models import Reserva
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.contrib.auth.decorators import login_required
-# Create your tests here.
+
 
 class NuevoUsuario(CreateView):
     model=Usuario
@@ -26,6 +26,7 @@ class LoginUsuario(LoginView):
 class LogoutUsuario(LogoutView):
     pass
 
+# Funcion para ver los datos del perfil del usuario actualmente logueado, requiere estar logueado
 @login_required
 def ver_mi_usuario(request):
     usuario = get_object_or_404(Usuario, id=request.user.id)
@@ -36,10 +37,14 @@ def ver_mi_usuario(request):
     }
     return render(request,"detalle_usuarios.html", context)
 
+# Funcion para editar los datos del perfil del usuario actualmente logueado, requiere estar logueado
 @login_required
 def editar_mi_usuario(request):
+    # busca el usuario actual
     user=get_object_or_404(Usuario,id=request.user.id)
+
     if request.method == "POST":
+        # Si es por post crea una instancia del form a partir de los datos del form del request y el usuario actual
         form=EditarUsuarioForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
