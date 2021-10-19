@@ -12,13 +12,14 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.contrib.auth.decorators import login_required
 # Create your tests here.
 
+# Crear nuevo usuario. Signup.
 class NuevoUsuario(CreateView):
     model=Usuario
     form_class=UsuarioForm
     template_name="signup.html"
     success_url=reverse_lazy("usuarios:login")
     
-# Login,Signup y Logout
+# Iniciar sesión. Login.
 class LoginUsuario(LoginView):
     model=Usuario
     template_name= 'login.html'
@@ -26,6 +27,7 @@ class LoginUsuario(LoginView):
 class LogoutUsuario(LogoutView):
     pass
 
+# Ver mis datos.
 @login_required
 def ver_mi_usuario(request):
     usuario = get_object_or_404(Usuario, id=request.user.id)
@@ -36,6 +38,7 @@ def ver_mi_usuario(request):
     }
     return render(request,"detalle_usuarios.html", context)
 
+# Editar mis datos.
 @login_required
 def editar_mi_usuario(request):
     user=get_object_or_404(Usuario,id=request.user.id)

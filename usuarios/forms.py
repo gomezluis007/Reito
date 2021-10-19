@@ -1,6 +1,7 @@
 from django import forms
 from .models import Usuario
 
+# Formulario que representa los datos de registro de un usuario.
 class UsuarioForm(forms.ModelForm):
     class Meta:
         model=Usuario
@@ -34,6 +35,7 @@ class UsuarioForm(forms.ModelForm):
             user.save()
         return user
 
+# Formulario que representa los datos que un usuario puede editar de sí mismo.
 class EditarUsuarioForm(forms.ModelForm):
     class Meta:
         model=Usuario
