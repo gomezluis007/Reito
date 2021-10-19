@@ -121,9 +121,13 @@ def cancelar_viaje(request, pk):
     print(fecha_actual)
     hora_actual = datetime.now().time()
     print(hora_actual)
-    if fecha < fecha_actual and hora == hora_actual:
+    if fecha > fecha_actual: 
         viaje.delete()
-        messages.success(request, "Aun no tienes un vehículo para realizar el viaje.")
+        messages.success(request, "Tu viaje se ha cancelado con éxito.")
+        return redirect('viajes:ver_viajes')
+    elif fecha == fecha_actual and hora > hora_actual:
+        viaje.delete()
+        messages.success(request, "Tu viaje se ha cancelado con éxito.")
         return redirect('viajes:ver_viajes')
     else:
         messages.error(request, "Este viaje no puede ser cancelado porque ya pasó su fecha de realización.")
