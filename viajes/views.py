@@ -13,6 +13,9 @@ from .forms import DestinoForm, ViajeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from datetime import date, datetime
+
+
 def index(request):
     return render(request, 'index.html')
 
@@ -42,7 +45,7 @@ def nuevo_viaje(request):
             if form.is_valid() and asientos_publicados >= capacidad:
                 form.save()
                 messages.success(request, "Se ha creado con éxito tu viaje.")
-                return redirect('viajes:index')
+                return redirect('viajes:ver_viajes')
             else:
                 messages.error(request, "Los datos ingresados no son válidos.")
                 return redirect('viajes:nuevo')
@@ -107,9 +110,31 @@ class EditarViaje(LoginRequiredMixin, UpdateView):
     #extra_context = {'':''}
     success_url = reverse_lazy('viajes:detalle')
 
-class EliminarViaje(LoginRequiredMixin,DeleteView):
-    model = Viaje
-    success_url = reverse_lazy('viajes:nuevo')
+@login_required
+def cancelar_viaje(request, pk):
+    viaje = get_object_or_404(Viaje, id=pk)
+
+    if request.method == "POST":
+    #Validacion de no poder cancelar un viaje que tiene fecha de ya realizado.
+        fecha = viaje.fecha
+        hora = viaje.hora
+        fecha_actual = datetime.now().date()
+        print(fecha_actual)
+        hora_actual = datetime.now().time()
+        print(hora_actual)
+        if fecha > fecha_actual: 
+            viaje.delete()
+            messages.success(request, "Tu viaje se ha cancelado con éxito.")
+            return redirect('viajes:ver_viajes')
+        elif fecha == fecha_actual and hora > hora_actual:
+            viaje.delete()
+            messages.success(request, "Tu viaje se ha cancelado con éxito.")
+            return redirect('viajes:ver_viajes')
+        else:
+            messages.error(request, "Este viaje no puede ser cancelado porque ya pasó su fecha de realización.")
+            return redirect('viajes:detalle', pk = pk)
+    
+
 
 @login_required
 def buscar_destinos(request):
