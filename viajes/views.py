@@ -37,7 +37,7 @@ class NuevoViaje(LoginRequiredMixin, CreateView):
 
 @login_required
 def nuevo_viaje(request):
-    usuario = get_object_or_404(Usuario, id=request.user.id)
+    usuario = get_object_or_404(Usuario, id=request.user.id) 
     if request.method == "POST":
         vehiculos = Vehiculo.objects.filter(id_usuario = request.user.id)
         if (vehiculos.count() > 0):
@@ -107,6 +107,8 @@ def detalle_viaje(request, pk):
             if(reservas.estado):
                 context['telefono']=usuario.telefono
         context['viaje'] = viaje
+        context['foto']= usuario.foto #Evia al front end la foto del usuario.
+
         return render(request, "detalle_viaje_viajero.html", context)
 
 class EditarViaje(LoginRequiredMixin, UpdateView):
@@ -117,25 +119,24 @@ class EditarViaje(LoginRequiredMixin, UpdateView):
 
 @login_required
 def cancelar_viaje(request, pk):
-    viaje = get_object_or_404(Viaje, id=pk)
+    viaje = get_object_or_404(Viaje, id=pk) # Obtener instancia del viaje que se quiere cancelar.
 
-    if request.method == "POST":
+    if request.method == "POST": # Verificar que venga por medio de un formulario.
     #Validacion de no poder cancelar un viaje que tiene fecha de ya realizado.
+        # Obtencion de fechas actuales y correspondientes al viaje.
         fecha = viaje.fecha
         hora = viaje.hora
         fecha_actual = datetime.now().date()
-        print(fecha_actual)
         hora_actual = datetime.now().time()
-        print(hora_actual)
-        if fecha > fecha_actual: 
+        if fecha > fecha_actual: # Cancelar si es mas antiguo que la fecha reciente.
             viaje.delete()
             messages.success(request, "Tu viaje se ha cancelado con éxito.")
             return redirect('viajes:ver_viajes')
-        elif fecha == fecha_actual and hora > hora_actual:
+        elif fecha == fecha_actual and hora > hora_actual: # Si es la misma fecha pero aun no es hora del viaje.
             viaje.delete()
             messages.success(request, "Tu viaje se ha cancelado con éxito.")
             return redirect('viajes:ver_viajes')
-        else:
+        else: # Si  ya pasó la fecha del viaje no deja cancelar y envia un mensaje de error.
             messages.error(request, "Este viaje no puede ser cancelado porque ya pasó su fecha de realización.")
             return redirect('viajes:detalle', pk = pk)
     
