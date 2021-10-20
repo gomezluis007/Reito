@@ -9,9 +9,11 @@
 {% block body %}
 
     <div class="container-image-index">
+        <br><br>
         <div class="container">
             <h1>Encuentra tu mejor Reito</h1>
         </div>
+        <br>
         <div class="container-fluid separator">
         
             {% if user.is_authenticated %}
@@ -22,7 +24,14 @@
                 <img class="image-index" src="{% static 'img/fondo_autos2.png' %}" alt="Transporte">
             {% endif %}
         </div>
+        <br><br><br>
+        <div class="container">
+            <h2>Destinos frecuentes</h1>
+        </div>
         <div class="container-fluid separator">
+            {% for destino  in destinos  %}
+                <a class = "destinos-frec" href="{% url 'viajes:buscar_viajes' destino.id%}">{{destino}}</a>
+            {% endfor %}
         </div>
     </div>
     
