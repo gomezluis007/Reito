@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from reito import settings
 
-# Create your models here.
+
 
 # Modelo que representa a un usuario del sistema.
 class Usuario(User):
