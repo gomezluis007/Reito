@@ -12,13 +12,14 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.contrib.auth.decorators import login_required
 
 
+# Crear nuevo usuario. Signup.
 class NuevoUsuario(CreateView):
     model=Usuario
     form_class=UsuarioForm
     template_name="signup.html"
     success_url=reverse_lazy("usuarios:login")
     
-# Login,Signup y Logout
+# Iniciar sesión. Login.
 class LoginUsuario(LoginView):
     model=Usuario
     template_name= 'login.html'
@@ -36,6 +37,7 @@ def ver_mi_usuario(request):
         'vehiculo':vehiculo
     }
     return render(request,"detalle_usuarios.html", context)
+
 
 # Funcion para editar los datos del perfil del usuario actualmente logueado, requiere estar logueado
 @login_required
