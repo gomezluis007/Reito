@@ -1,4 +1,6 @@
+from typing import List
 from django.contrib import messages
+from django.db.models.query import QuerySet
 from usuarios.models import Usuario
 from vehiculos.models import Vehiculo
 from .models import Viaje, Destino
@@ -12,12 +14,15 @@ from django.urls import reverse_lazy
 from .forms import DestinoForm, ViajeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count
 
 from datetime import date, datetime
 
 
 def index(request):
-    return render(request, 'index.html')
+    destinos = obtener_destinos_frecuentes()
+    context={'destinos':destinos}
+    return render(request, 'index.html',context=context)
 
 class NuevoViaje(LoginRequiredMixin, CreateView):
     model = Viaje
@@ -159,6 +164,8 @@ def buscar_viajes(request, pk):
     }
     if(len(viajes)>0):
         context['viajes']=viajes
+        
+    obtener_destinos_frecuentes(request)
     return render(request,"lista_viajes.html",context)
 
 @login_required
@@ -171,3 +178,17 @@ def ver_viajes(request):
         'viajes':viajes
     }
     return render(request, 'ver_viajes.html',context)
+
+def obtener_destinos_frecuentes():
+    resultado = (Viaje.objects
+              .values('destino_id')
+              .annotate(contador = Count('destino_id'))
+              .order_by('-contador')[:5]
+              )
+    
+    destinos = []
+    for item in resultado:
+        destino = get_object_or_404(Destino, id = item['destino_id'])
+        destinos.append(destino)
+    
+    return destinos
