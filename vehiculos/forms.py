@@ -22,7 +22,8 @@ class VehiculosForm(forms.ModelForm):
             'asientos':'Asientos',
             'descripcion':'Descripción'
         }
-
+    #Este metodo se encarga de comprovar que la longitud de la matricula es igual a 7
+    # y el numero de asientos es mayor de 1.
     def clean(self):
             super(VehiculosForm, self).clean()
             matricula =  self.cleaned_data.get('matricula')
@@ -33,7 +34,7 @@ class VehiculosForm(forms.ModelForm):
 
             if asientos < 1:
                 self._errors['asientos'] = self.error_class(['Los asientos deben ser un numero entero positivo'])    
-
+#
 class Vehiculos_editar(forms.ModelForm):
     class Meta:
         model = Vehiculo
