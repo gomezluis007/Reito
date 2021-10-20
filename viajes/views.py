@@ -20,7 +20,7 @@ from datetime import date, datetime
 
 
 def index(request):
-    destinos = obtener_destinos_frecuentes()
+    destinos = obtener_destinos_frecuentes() #Aqui se obtienen los destinos mas frecuentes para mostrarlos en el Home
     context={'destinos':destinos}
     return render(request, 'index.html',context=context)
 
@@ -164,8 +164,6 @@ def buscar_viajes(request, pk):
     }
     if(len(viajes)>0):
         context['viajes']=viajes
-        
-    obtener_destinos_frecuentes(request)
     return render(request,"lista_viajes.html",context)
 
 @login_required
@@ -179,14 +177,18 @@ def ver_viajes(request):
     }
     return render(request, 'ver_viajes.html',context)
 
+'''
+Función que obtiene los destinos mas frecuentes o populares.
+'''
 def obtener_destinos_frecuentes():
     resultado = (Viaje.objects
               .values('destino_id')
-              .annotate(contador = Count('destino_id'))
-              .order_by('-contador')[:5]
+              .annotate(contador = Count('destino_id')) ## Es la columna que se va a contar. 
+              .order_by('-contador')[:5] ## Ordena por contador y solo obtiene los primeros 5 resultados
               )
     
     destinos = []
+    ## obtiene cada Destino apartir del resultado anterior y los va guardando en una lista
     for item in resultado:
         destino = get_object_or_404(Destino, id = item['destino_id'])
         destinos.append(destino)
