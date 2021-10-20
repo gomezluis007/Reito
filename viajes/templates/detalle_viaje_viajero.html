@@ -50,11 +50,11 @@
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
-                <h1 class="text-center">{{nombre}}</h1>
+                <h1 class="text-center">{{viaje.conductor}}</h1>
             </li>
             <li class="list-group-item">
                 {% if descripcion %}
-                    <p class="card-text">{{descripcion}}</p>
+                    <p class="card-text">{{viaje.conductor.descripcion}}</p>
                 {% else %}
                     <p class="card-text">&Eacute;ste usuario a&uacute;n no tiene descripci&oacute;n.</p>
                 {% endif %}

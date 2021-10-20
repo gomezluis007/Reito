@@ -102,10 +102,7 @@ def detalle_viaje(request, pk):
             if(reservas.estado):
                 context['telefono']=usuario.telefono
         context['viaje'] = viaje
-        context['nombre'] = usuario.first_name
         context['foto']= usuario.foto #Evia al front end la foto del usuario.
-        context['descripcion']= usuario.descripcion # Envia al front end la descripcion del usuario.
-        print(usuario.descripcion)
 
         return render(request, "detalle_viaje_viajero.html", context)
 
