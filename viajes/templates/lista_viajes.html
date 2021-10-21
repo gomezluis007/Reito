@@ -9,8 +9,21 @@
 
 <!-- <h1 class="text-center">Viajes disponibles para {{destino}}</h1> -->
 <br><br>
-<div class="container col-sm-10 col-md-6 col-lg-4 justify-content-center align-items-center">
-    {% if viajes %}
+<div class="container col-sm-10 col-md-6 col-lg-4 justify-content-center align-items-center" style="object-position: 50% 50%;">
+
+  <div>
+    <form action="" method="GET">
+      <label for="precio" class="form-label">Filtrar por precio</label>
+      <div class="input-group">
+        <input pattern="\d*" class="form-control" name="precio" id="precio" value="{{precio}}" placeholder="Precio">
+        <button type="submit" class="btn boton">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+  <br>
+  {% if viajes %}
     <div class="text-center" style="margin-bottom: 20px;">
       <h1>Selecciona tu Reito</h1>
     </div>

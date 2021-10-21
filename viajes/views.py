@@ -141,7 +141,8 @@ def cancelar_viaje(request, pk):
             return redirect('viajes:detalle', pk = pk)
     
 
-
+# Método encargado de recuperar la lista de destinos que coinciden con lo que el usuario escribe en la barra de búsqueda.
+# Lo que se escribe en la barra de búsqueda es enviado aquí y se retornan los posibles destinos.
 @login_required
 def buscar_destinos(request):
     destino=request.GET.get('destino')
@@ -152,10 +153,15 @@ def buscar_destinos(request):
             destinos.append(d)
     return JsonResponse({'status' : 200 , 'data' : destinos})
 
+# Método encargado de recuperar viajes en base a un identificador único del destino.
+# Este método también filtra los viajes en base a un precio.
 @login_required
 def buscar_viajes(request, pk):
     destino_encontrado=get_object_or_404(Destino,id=pk)
-    lista_viajes=Viaje.objects.filter(destino=destino_encontrado)
+    if request.GET.get('precio'):
+        lista_viajes=Viaje.objects.filter(destino=destino_encontrado, precio__lte=request.GET.get('precio'))
+    else:
+        lista_viajes=Viaje.objects.filter(destino=destino_encontrado)
     viajes=[]
     for viaje in lista_viajes:
         if viaje.asientos>0:
@@ -165,6 +171,8 @@ def buscar_viajes(request, pk):
     }
     if(len(viajes)>0):
         context['viajes']=viajes
+    if request.GET.get('precio'):
+        context['precio']=request.GET.get('precio')
     return render(request,"lista_viajes.html",context)
 
 @login_required
