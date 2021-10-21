@@ -7,7 +7,7 @@ from reito import settings
 # Modelo que representa a un usuario del sistema.
 class Usuario(User):
     telefono= models.BigIntegerField()
-    foto=models.FileField(default=None,upload_to="img/",blank=True,null=True)
+    foto=models.ImageField(default=None,upload_to="img/",blank=True,null=True)
     descripcion = models.CharField(max_length=300, blank=True, null=True)
 
 
