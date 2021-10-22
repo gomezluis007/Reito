@@ -39,7 +39,7 @@ class UsuarioForm(forms.ModelForm):
 class EditarUsuarioForm(forms.ModelForm):
     class Meta:
         model=Usuario
-        fields=('email','telefono','descripcion')
+        fields=('email','telefono','descripcion', 'foto')
 
         widgets={
             'email':forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Correo'}),
@@ -53,5 +53,6 @@ class EditarUsuarioForm(forms.ModelForm):
             'last_name': 'Apellidos',
             'email': 'Correo',
             'telefono':'Teléfono',
-            'descripcion':'Descripción'
+            'descripcion':'Descripción',
+            'foto':'Fotografía'
         }
