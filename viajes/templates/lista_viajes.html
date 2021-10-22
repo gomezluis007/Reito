@@ -15,7 +15,7 @@
     <form action="" method="GET">
       <label for="precio" class="form-label">Filtrar por precio</label>
       <div class="input-group">
-        <input pattern="\d*" class="form-control" name="precio" id="precio" value="{{precio}}" placeholder="Precio">
+        <input pattern="\d*" maxlength="3" class="form-control" name="precio" id="precio" value="{{precio}}" placeholder="Precio máximo">
         <button type="submit" class="btn boton">
           <i class="fas fa-search"></i>
         </button>
