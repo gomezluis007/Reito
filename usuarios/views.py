@@ -10,6 +10,7 @@ from reservas.models import Reserva
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 # Crear nuevo usuario. Signup.
@@ -47,9 +48,10 @@ def editar_mi_usuario(request):
 
     if request.method == "POST":
         # Si es por post crea una instancia del form a partir de los datos del form del request y el usuario actual
-        form=EditarUsuarioForm(request.POST, instance=user)
+        form=EditarUsuarioForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
+            messages.success(request, "Tu perfil se ha actualizado")
             return redirect("usuarios:ver_mi_cuenta")
     form=EditarUsuarioForm(instance=user)
     context={

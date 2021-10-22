@@ -20,7 +20,7 @@ Editar cuenta
 
                 <label for="last_name" class="form-label">Apellidos</label>
                 <input type="text" class="form-control" name="last_name" id="last_name" value="{{user.last_name}}" disabled>
-                <form method="post">
+                <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     
                     <label for="email" class="form-label">Correo</label>
@@ -32,6 +32,14 @@ Editar cuenta
                     {{ form.descripcion.errors }}
                     <label for="{{ form.descripcion.id_for_label }}">Descripci&oacute;n</label>
                     {{ form.descripcion }}
+
+                    
+                    {% if not form.foto.value %}
+                        {{ form.foto.errors }}
+                        <label for="foto" class="form-label">Imagen</label>
+                        <input type="file" class="form-control" name="foto" id="foto" accept="image/x-png,image/gif,image/jpeg" required>
+                    {% endif %}
+                        
 
                     <br>
 
