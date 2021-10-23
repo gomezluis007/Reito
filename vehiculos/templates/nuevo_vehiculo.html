@@ -18,11 +18,19 @@
                 <form method="post">
                     {% csrf_token %}
                     {{form.as_p}}
-                    <button type="submit" class="btn boton">Guardar</button>
+
+                    
+                    <div class="text-center">
+                        <a href="{% url 'usuarios:ver_mi_cuenta' %}" class="btn boton-negativo">Volver</a>
+                        <button type="submit" class="btn boton">Guardar</button>
+                    </div>
                 </form>
             </div><!--/col-9-->
         </div><!--/row-->
     </div>
+
+    <br>
+    <br>
 {% endblock body %}
 
 

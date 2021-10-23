@@ -29,16 +29,16 @@
         </div>
     </div>
 
-    <br><br>
+    <br>
 
-    <div class="container">
-      <div class="container col-sm-11 col-md-9 col-lg-5">
-        <a href="javascript:history.back()" class="btn boton"> Volver Atrás</a>
+
+      <div class="container col-sm-11 col-md-9 col-lg-5 text-center">
+        <a href="javascript:history.back()" class="btn boton-negativo"> Volver</a>
         <button onclick="muestraModal('{% url 'viajes:eliminar' viaje.id %}','{{viaje.destino}}')" type="button" class="btn boton" data-toggle="modal" data-target="#exampleModal">
           Cancelar Reito
         </button>
       </div>
-    </div>
+
 
     <br><br>
     
@@ -108,7 +108,7 @@
           </div>
           <div class="modal-body" id ="texto"></div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+              <button type="button" class="btn boton-negativo" data-dismiss="modal">No</button>
               <form id="formEliminar" method="post">
                   {% csrf_token %}
                   <button type="submit" class="btn btn-danger">Si</button>
