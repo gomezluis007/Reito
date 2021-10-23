@@ -142,6 +142,11 @@ body {
     color:white;
 }
 
+.boton-peligro {
+    background:#0D0221; 
+    color:white;
+}
+
 @media (min-width: 990px) {
     .busqueda {
         left:35%

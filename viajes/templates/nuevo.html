@@ -14,8 +14,10 @@
             <form method="post">
                 {% csrf_token %}
                 {{form.as_p}}
-                <a href="javascript:history.back()" class="btn boton"> Volver Atrás</a>
-                <button type="submit" class="btn boton">Guardar</button>
+                <div class="text-center">
+                    <a href="javascript:history.back()" class="btn boton-negativo"> Volver</a>
+                    <button type="submit" class="btn boton">Guardar</button>
+                </div>
             </form>      
         </div>
     </div>

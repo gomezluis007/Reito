@@ -67,7 +67,7 @@
     <br>
 
     <div class="text-muted text-center">
-        <a href="javascript:history.back()" class="btn boton"> Volver Atrás</a>
+        <a href="javascript:history.back()" class="btn boton-negativo"> Volver </a>
         {% if tiene_reserva %}
             <a class="btn boton-negativo" href="{% url 'reservas:cancelar' user.id viaje.id %}">Cancelar</a>
         {% else %}
@@ -75,6 +75,8 @@
         {% endif %}
     </div>
 </div>
+<br>
+<br>
 
 
     

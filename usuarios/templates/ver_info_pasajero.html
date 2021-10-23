@@ -29,25 +29,22 @@
                 {% if usuario.descripcion %}
                     <label for="descripcion" class="form-label">Descripci&oacute;n</label>
                     <input type="text" class="form-control" name="descripcion" id="id_descripcion"value="{{ usuario.descripcion }}" disabled>
-                {% endif %}
-                    
+                {% endif %}  
             </div>
              <br>
-                <div class="container">
-                    <div class="row justify-content-center align-items-center">
-                        <div class="col">
-                                <a href="javascript:history.back()" class="btn boton-negativo"> Volver Atrás</a>
-                        </div>
-                        <div class="col d-flex flex-row-reverse">
-                            {% if not reserva.estado %}
-                                <a class ="btn boton" href="{%url 'reservas:aceptar' usuario.id viaje.id %}">Aceptar</a>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            
+
+            <div class="text-center">
+
+                <a href="javascript:history.back()" class="btn boton-negativo"> Volver</a>
+                {% if not reserva.estado %}
+                    <a class ="btn boton" href="{%url 'reservas:aceptar' usuario.id viaje.id %}">Aceptar pasajero</a>
+                {% endif %}
+            </div>
         </div><!--/col-9-->
     </div><!--/row-->
 </div>
+
+<br>
+<br>
   
 {% endblock body %}
