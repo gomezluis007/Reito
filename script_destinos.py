@@ -7,6 +7,7 @@ django.setup()
 
 from viajes.models import Destino, Viaje
 from reservas.models import Reserva
+from usuarios.models import Usuario
 
 destinos_nuevos=[]
 with open('destinos.txt') as d:
@@ -24,3 +25,4 @@ for destino in destinos_nuevos:
 
 # Reserva.objects.all().delete()
 # Viaje.objects.all().delete()
+Usuario.objects.all().delete()
