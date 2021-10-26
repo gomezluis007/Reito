@@ -25,4 +25,4 @@ for destino in destinos_nuevos:
 
 # Reserva.objects.all().delete()
 # Viaje.objects.all().delete()
-Usuario.objects.all().delete()
+# Usuario.objects.all().delete()
