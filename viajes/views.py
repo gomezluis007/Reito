@@ -100,6 +100,7 @@ def detalle_viaje(request, pk):
         return render(request, "detalle_viaje.html", context)
 
     else:
+        # Detalle viaje viajero
         reservas = Reserva.objects.filter(usuario=request.user.id, viaje=pk).first()
         context = {}
         if(reservas):
@@ -108,6 +109,7 @@ def detalle_viaje(request, pk):
                 context['telefono']=usuario.telefono
         context['viaje'] = viaje
         context['foto']= usuario.foto #Evia al front end la foto del usuario.
+        context['descripcion'] = usuario.descripcion
 
         return render(request, "detalle_viaje_viajero.html", context)
 
