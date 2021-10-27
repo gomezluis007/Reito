@@ -41,11 +41,11 @@ def cancelar_reserva(request, user_pk, viaje_pk):
                 viaje.asientos += 1
                 viaje.save()
                 reserva.delete()
-                messages.success(request, "Haz cancelado tu reserva")
+                messages.success(request, "Has cancelado tu reserva")
                 return redirect('viajes:index')
             else:
                 reserva.delete()
-                messages.success(request, "Haz cancelado tu reserva")
+                messages.success(request, "Has cancelado tu reserva")
                 return redirect('viajes:index')
         else:
             messages.error(request, "No fue posible cancelar la reserva")

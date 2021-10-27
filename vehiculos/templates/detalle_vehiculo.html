@@ -34,10 +34,16 @@
                     <input type="textarea" class="form-control" name="email" id="email"value="{{vehiculo.descripcion}}" disabled>
                 </div>
                 <br>
-                <a href="{% url 'usuarios:ver_mi_cuenta' %}" class="boton btn">Regresar</a>
+                <div class="text-center">
+                    <a href="{% url 'usuarios:ver_mi_cuenta' %}" class="btn boton-negativo">Volver</a>
+                    <a href="{% url 'vehiculos:editar' vehiculo.id %}" class="btn boton">Editar</a>
+                </div>
             </div><!--/col-9-->
         </div><!--/row-->
     </div>
+
+<br>
+<br>
     
 {% endblock body %}
 

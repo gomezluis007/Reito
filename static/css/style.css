@@ -77,7 +77,6 @@ body {
 
 .container-image-index {
     text-align: center;
-    background-color: #3A606E;
 }
 
 
@@ -85,7 +84,7 @@ body {
     .container-image-index h1 {
         font-size: 60px;
         font-weight: bolder;
-        color: #FFFFFF;
+        color: #3A606E;
         padding-bottom: 10px;
     }
 }
@@ -94,7 +93,24 @@ body {
     .container-image-index h1 {
         font-size: 30px;
         font-weight: bolder;
-        color: #FFFFFF;
+        color: #3A606E;
+        padding-bottom: 10px;
+    }
+}
+@media (min-width: 768px) {
+    .container-image-index h2 {
+        font-size: 30px;
+        font-weight: bolder;
+        color: #3A606E;
+        padding-bottom: 10px;
+    }
+}
+
+@media (max-width: 767px) {
+    .container-image-index h2 {
+        font-size: 30px;
+        font-weight: bolder;
+        color: #3A606E;
         padding-bottom: 10px;
     }
 }
@@ -126,6 +142,11 @@ body {
     color:white;
 }
 
+.boton-peligro {
+    background:#0D0221; 
+    color:white;
+}
+
 @media (min-width: 990px) {
     .busqueda {
         left:35%
@@ -153,9 +174,21 @@ body {
 .destino-item:hover {
     background:#3A606E; 
     color:white;
-    margin: 10px;
 }
+
 .destino-item {
-    margin: 10px;
+    margin-bottom: 17.5px;
+}
+
+
+.destinos-frec{
+    text-decoration: none;
+    color: #2374AB;
+    margin-left: 15px;
+}
+
+.destinos-frec:hover{
+    text-decoration: none;
+    color: #0D0221;
 }
 

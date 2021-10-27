@@ -10,15 +10,17 @@ from reservas.models import Reserva
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.contrib.auth.decorators import login_required
-# Create your tests here.
+from django.contrib import messages
 
+
+# Crear nuevo usuario. Signup.
 class NuevoUsuario(CreateView):
     model=Usuario
     form_class=UsuarioForm
     template_name="signup.html"
     success_url=reverse_lazy("usuarios:login")
     
-# Login,Signup y Logout
+# Iniciar sesión. Login.
 class LoginUsuario(LoginView):
     model=Usuario
     template_name= 'login.html'
@@ -26,6 +28,7 @@ class LoginUsuario(LoginView):
 class LogoutUsuario(LogoutView):
     pass
 
+# Funcion para ver los datos del perfil del usuario actualmente logueado, requiere estar logueado
 @login_required
 def ver_mi_usuario(request):
     usuario = get_object_or_404(Usuario, id=request.user.id)
@@ -36,13 +39,19 @@ def ver_mi_usuario(request):
     }
     return render(request,"detalle_usuarios.html", context)
 
+
+# Funcion para editar los datos del perfil del usuario actualmente logueado, requiere estar logueado
 @login_required
 def editar_mi_usuario(request):
+    # busca el usuario actual
     user=get_object_or_404(Usuario,id=request.user.id)
+
     if request.method == "POST":
-        form=EditarUsuarioForm(request.POST, instance=user)
+        # Si es por post crea una instancia del form a partir de los datos del form del request y el usuario actual
+        form=EditarUsuarioForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
+            messages.success(request, "Tu perfil se ha actualizado")
             return redirect("usuarios:ver_mi_cuenta")
     form=EditarUsuarioForm(instance=user)
     context={

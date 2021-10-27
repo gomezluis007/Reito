@@ -13,6 +13,9 @@ import os
 from pathlib import Path
 from django.urls.base import reverse_lazy
 import django_heroku
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,6 +46,7 @@ INSTALLED_APPS = [
     'vehiculos',
     'viajes',
     'reservas',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -96,6 +100,12 @@ DATABASES = {
     )
 }
 
+# adding config
+cloudinary.config( 
+  cloud_name = "teamasd", 
+  api_key = "424426711443113", 
+  api_secret = "FPDOLpW4P1kP8ENxMW9lN6BjD68" 
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -142,10 +152,14 @@ if DEBUG:
     STATICFILES_DIRS = (
         os.path.join(BASE_DIR, 'static'),
     )
+    
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # django_heroku.settings(locals())
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'

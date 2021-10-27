@@ -1,4 +1,6 @@
+from typing import List
 from django.contrib import messages
+from django.db.models.query import QuerySet
 from usuarios.models import Usuario
 from vehiculos.models import Vehiculo
 from .models import Viaje, Destino
@@ -12,9 +14,15 @@ from django.urls import reverse_lazy
 from .forms import DestinoForm, ViajeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count
+
+from datetime import date, datetime
+
 
 def index(request):
-    return render(request, 'index.html')
+    destinos = obtener_destinos_frecuentes() #Aqui se obtienen los destinos mas frecuentes para mostrarlos en el Home
+    context={'destinos':destinos}
+    return render(request, 'index.html',context=context)
 
 class NuevoViaje(LoginRequiredMixin, CreateView):
     model = Viaje
@@ -29,7 +37,7 @@ class NuevoViaje(LoginRequiredMixin, CreateView):
 
 @login_required
 def nuevo_viaje(request):
-    usuario = get_object_or_404(Usuario, id=request.user.id)
+    usuario = get_object_or_404(Usuario, id=request.user.id) 
     if request.method == "POST":
         vehiculos = Vehiculo.objects.filter(id_usuario = request.user.id)
         if (vehiculos.count() > 0):
@@ -42,7 +50,7 @@ def nuevo_viaje(request):
             if form.is_valid() and asientos_publicados >= capacidad:
                 form.save()
                 messages.success(request, "Se ha creado con éxito tu viaje.")
-                return redirect('viajes:index')
+                return redirect('viajes:ver_viajes')
             else:
                 messages.error(request, "Los datos ingresados no son válidos.")
                 return redirect('viajes:nuevo')
@@ -92,6 +100,7 @@ def detalle_viaje(request, pk):
         return render(request, "detalle_viaje.html", context)
 
     else:
+        # Detalle viaje viajero
         reservas = Reserva.objects.filter(usuario=request.user.id, viaje=pk).first()
         context = {}
         if(reservas):
@@ -99,6 +108,9 @@ def detalle_viaje(request, pk):
             if(reservas.estado):
                 context['telefono']=usuario.telefono
         context['viaje'] = viaje
+        context['foto']= usuario.foto #Evia al front end la foto del usuario.
+        context['descripcion'] = usuario.descripcion
+
         return render(request, "detalle_viaje_viajero.html", context)
 
 class EditarViaje(LoginRequiredMixin, UpdateView):
@@ -107,10 +119,32 @@ class EditarViaje(LoginRequiredMixin, UpdateView):
     #extra_context = {'':''}
     success_url = reverse_lazy('viajes:detalle')
 
-class EliminarViaje(LoginRequiredMixin,DeleteView):
-    model = Viaje
-    success_url = reverse_lazy('viajes:nuevo')
+@login_required
+def cancelar_viaje(request, pk):
+    viaje = get_object_or_404(Viaje, id=pk) # Obtener instancia del viaje que se quiere cancelar.
 
+    if request.method == "POST": # Verificar que venga por medio de un formulario.
+    #Validacion de no poder cancelar un viaje que tiene fecha de ya realizado.
+        # Obtencion de fechas actuales y correspondientes al viaje.
+        fecha = viaje.fecha
+        hora = viaje.hora
+        fecha_actual = datetime.now().date()
+        hora_actual = datetime.now().time()
+        if fecha > fecha_actual: # Cancelar si es mas antiguo que la fecha reciente.
+            viaje.delete()
+            messages.success(request, "Tu viaje se ha cancelado con éxito.")
+            return redirect('viajes:ver_viajes')
+        elif fecha == fecha_actual and hora > hora_actual: # Si es la misma fecha pero aun no es hora del viaje.
+            viaje.delete()
+            messages.success(request, "Tu viaje se ha cancelado con éxito.")
+            return redirect('viajes:ver_viajes')
+        else: # Si  ya pasó la fecha del viaje no deja cancelar y envia un mensaje de error.
+            messages.error(request, "Este viaje no puede ser cancelado porque ya pasó su fecha de realización.")
+            return redirect('viajes:detalle', pk = pk)
+    
+
+# Método encargado de recuperar la lista de destinos que coinciden con lo que el usuario escribe en la barra de búsqueda.
+# Lo que se escribe en la barra de búsqueda es enviado aquí y se retornan los posibles destinos.
 @login_required
 def buscar_destinos(request):
     destino=request.GET.get('destino')
@@ -121,10 +155,15 @@ def buscar_destinos(request):
             destinos.append(d)
     return JsonResponse({'status' : 200 , 'data' : destinos})
 
+# Método encargado de recuperar viajes en base a un identificador único del destino.
+# Este método también filtra los viajes en base a un precio.
 @login_required
 def buscar_viajes(request, pk):
     destino_encontrado=get_object_or_404(Destino,id=pk)
-    lista_viajes=Viaje.objects.filter(destino=destino_encontrado)
+    if request.GET.get('precio'):
+        lista_viajes=Viaje.objects.filter(destino=destino_encontrado, precio__lte=request.GET.get('precio'))
+    else:
+        lista_viajes=Viaje.objects.filter(destino=destino_encontrado)
     viajes=[]
     for viaje in lista_viajes:
         if viaje.asientos>0:
@@ -134,6 +173,8 @@ def buscar_viajes(request, pk):
     }
     if(len(viajes)>0):
         context['viajes']=viajes
+    if request.GET.get('precio'):
+        context['precio']=request.GET.get('precio')
     return render(request,"lista_viajes.html",context)
 
 @login_required
@@ -146,3 +187,21 @@ def ver_viajes(request):
         'viajes':viajes
     }
     return render(request, 'ver_viajes.html',context)
+
+'''
+Función que obtiene los destinos mas frecuentes o populares.
+'''
+def obtener_destinos_frecuentes():
+    resultado = (Viaje.objects
+              .values('destino_id')
+              .annotate(contador = Count('destino_id')) ## Es la columna que se va a contar. 
+              .order_by('-contador')[:5] ## Ordena por contador y solo obtiene los primeros 5 resultados
+              )
+    
+    destinos = []
+    ## obtiene cada Destino apartir del resultado anterior y los va guardando en una lista
+    for item in resultado:
+        destino = get_object_or_404(Destino, id = item['destino_id'])
+        destinos.append(destino)
+    
+    return destinos
