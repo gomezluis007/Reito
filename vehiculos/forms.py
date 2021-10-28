@@ -22,8 +22,8 @@ class VehiculosForm(forms.ModelForm):
             'asientos':'Asientos',
             'descripcion':'Descripción'
         }
-    #Este metodo se encarga de comprovar que la longitud de la matricula es igual a 7
-    # y el numero de asientos es mayor de 1.
+   # This method is in charge of verifying that the length of the license plate is equal to 7 
+   # and the number of seats is greater than 1.
     def clean(self):
             super(VehiculosForm, self).clean()
             matricula =  self.cleaned_data.get('matricula')

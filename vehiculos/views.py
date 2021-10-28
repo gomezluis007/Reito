@@ -8,24 +8,25 @@ from django.urls import reverse_lazy
 from usuarios.models import Usuario
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-#Esta clase sirve para crear un nuevo vehículo y tiene la validacion
-# para comprobar que primeramente el usuario esta logueado
+# This class is used to create a new vehicle and has the validation
+# to check that the user is logged in first 
 class VehiculoCrear(LoginRequiredMixin, CreateView):
     model = Vehiculo
     form_class = VehiculosForm
     template_name = "nuevo_vehiculo.html"
     success_url = reverse_lazy('usuarios:ver_mi_cuenta')
 
-    #Este metodo sirve para obtener el id del usuario logueado ya que 
-    # en el front end se requiere dicho id para la creacion de un vehiculo pues
-    # este id es una llave foeranea del vehiculo
+    #This method is used to obtain the id of the logged in user since
+    # in the front end this id is required for the creation of a vehicle because
+    # this id is a foreign key of the vehicle 
     def form_valid(self, form):
         usuario = get_object_or_404(Usuario, id=self.request.user.id)
         form.instance.id_usuario = usuario
         return super().form_valid(form)
-#Esta clase tiene como funcion permitir la modificación de un vehiculo existente
-# tomando como form un form especial el cual solicita solamente la descripcion ya que
-# por seguridad este es el unico campo modificable.
+    
+# This class has the function of allowing the modification of an existing vehicle
+# taking as a form a special form which only requests the description since
+# for security this is the only modifiable field.
 class VehiculoActualizar(UpdateView):
     model = Vehiculo
     form_class = Vehiculos_editar
@@ -35,8 +36,8 @@ class VehiculoActualizar(UpdateView):
 class VehiculoEliminar(DeleteView):
     model = Vehiculo
     success_url = reverse_lazy('usuarios:ver_mi_cuenta')
-# Esta clas ees la encargad ade mostrar la informacion de un vehiculo en caso
-# de que un usuario desee ver su vehiculo.
+    
+# This class is in charge of displaying the information of a vehicle in case # a user wants to see their vehicle.
 class VehiculoDetalle(LoginRequiredMixin, DetailView):
     model = Vehiculo
     form_class = VehiculosForm
