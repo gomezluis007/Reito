@@ -102,9 +102,9 @@ DATABASES = {
 
 # adding config
 cloudinary.config( 
-  cloud_name = "dpirqsrpb", 
-  api_key = "787261627386698", 
-  api_secret = "6LpkcOAnzDajjCbJ4ylKYyjr3I0" 
+  cloud_name = "#", 
+  api_key = "#", 
+  api_secret = "#" 
 )
 
 # Password validation
