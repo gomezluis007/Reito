@@ -121,30 +121,35 @@ class EditarViaje(LoginRequiredMixin, UpdateView):
 
 @login_required
 def cancelar_viaje(request, pk):
-    viaje = get_object_or_404(Viaje, id=pk) # Obtener instancia del viaje que se quiere cancelar.
+    # Obtener instancia del viaje que se quiere cancelar.
+    viaje = get_object_or_404(Viaje, id=pk) 
 
-    if request.method == "POST": # Verificar que venga por medio de un formulario.
-    #Validacion de no poder cancelar un viaje que tiene fecha de ya realizado.
-        # Obtencion de fechas actuales y correspondientes al viaje.
+    # Verify that it comes through a form.
+    if request.method == "POST": 
+        # Validation of not being able to cancel a trip that has a date already made.
+        # Obtaining current dates and corresponding to the trip.
         fecha = viaje.fecha
         hora = viaje.hora
         fecha_actual = datetime.now().date()
         hora_actual = datetime.now().time()
-        if fecha > fecha_actual: # Cancelar si es mas antiguo que la fecha reciente.
+        # Cancel if it is older than the recent date.
+        if fecha > fecha_actual: 
             viaje.delete()
             messages.success(request, "Tu viaje se ha cancelado con éxito.")
             return redirect('viajes:ver_viajes')
-        elif fecha == fecha_actual and hora > hora_actual: # Si es la misma fecha pero aun no es hora del viaje.
+            # If it is the same date but it is not yet time for the trip.
+        elif fecha == fecha_actual and hora > hora_actual: 
             viaje.delete()
             messages.success(request, "Tu viaje se ha cancelado con éxito.")
             return redirect('viajes:ver_viajes')
-        else: # Si  ya pasó la fecha del viaje no deja cancelar y envia un mensaje de error.
+            # If the date of the trip has passed, it does not allow canceling and sends an error message.
+        else: 
             messages.error(request, "Este viaje no puede ser cancelado porque ya pasó su fecha de realización.")
             return redirect('viajes:detalle', pk = pk)
     
 
-# Método encargado de recuperar la lista de destinos que coinciden con lo que el usuario escribe en la barra de búsqueda.
-# Lo que se escribe en la barra de búsqueda es enviado aquí y se retornan los posibles destinos.
+# Method in charge of retrieving the list of destinations that match what the user types in the search bar.
+# What is written in the search bar is sent here and the possible destinations are returned.
 @login_required
 def buscar_destinos(request):
     destino=request.GET.get('destino')
@@ -155,8 +160,8 @@ def buscar_destinos(request):
             destinos.append(d)
     return JsonResponse({'status' : 200 , 'data' : destinos})
 
-# Método encargado de recuperar viajes en base a un identificador único del destino.
-# Este método también filtra los viajes en base a un precio.
+# Method in charge of recovering trips based on a unique identifier of the destination.
+# This method also filters trips based on price.
 @login_required
 def buscar_viajes(request, pk):
     destino_encontrado=get_object_or_404(Destino,id=pk)
@@ -194,12 +199,14 @@ Función que obtiene los destinos mas frecuentes o populares.
 def obtener_destinos_frecuentes():
     resultado = (Viaje.objects
               .values('destino_id')
-              .annotate(contador = Count('destino_id')) ## Es la columna que se va a contar. 
-              .order_by('-contador')[:5] ## Ordena por contador y solo obtiene los primeros 5 resultados
+              # It is the column to be counted.
+              .annotate(contador = Count('destino_id'))
+              # Sort by counter and only get the first 5 results.
+              .order_by('-contador')[:5] 
               )
     
     destinos = []
-    ## obtiene cada Destino apartir del resultado anterior y los va guardando en una lista
+    # Obtains each Destination from the previous result and saves them in a list.
     for item in resultado:
         destino = get_object_or_404(Destino, id = item['destino_id'])
         destinos.append(destino)
