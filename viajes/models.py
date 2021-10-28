@@ -3,7 +3,6 @@ from datetime import date
 
 from django.db.models.fields import CharField, DecimalField, IntegerField
 
-# Create your models here.
 
 class Destino(models.Model):
     nombre = models.CharField("Nombre", max_length=200)
