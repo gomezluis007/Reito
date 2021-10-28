@@ -121,7 +121,7 @@ class EditarViaje(LoginRequiredMixin, UpdateView):
 
 @login_required
 def cancelar_viaje(request, pk):
-    # Obtener instancia del viaje que se quiere cancelar.
+    # Get an instance of the trip you want to cancel.
     viaje = get_object_or_404(Viaje, id=pk) 
 
     # Verify that it comes through a form.
