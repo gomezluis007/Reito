@@ -20,7 +20,8 @@ from datetime import date, datetime
 
 
 def index(request):
-    destinos = obtener_destinos_frecuentes() #Aqui se obtienen los destinos mas frecuentes para mostrarlos en el Home
+    # Here are the most frequent destinations to show them in the Home
+    destinos = obtener_destinos_frecuentes() 
     context={'destinos':destinos}
     return render(request, 'index.html',context=context)
 
@@ -66,7 +67,7 @@ def nuevo_viaje(request):
 
 class NuevoDestino(LoginRequiredMixin, CreateView):
     model = Destino
-    #extra_context = {'':''}
+    # extra_context = {'':''}
     form_class = DestinoForm
     template_name = "nuevo_destino.html"
     success_url = reverse_lazy('viajes:nuevo')
@@ -100,7 +101,7 @@ def detalle_viaje(request, pk):
         return render(request, "detalle_viaje.html", context)
 
     else:
-        # Detalle viaje viajero
+        # Traveler travel detail
         reservas = Reserva.objects.filter(usuario=request.user.id, viaje=pk).first()
         context = {}
         if(reservas):
@@ -116,7 +117,7 @@ def detalle_viaje(request, pk):
 class EditarViaje(LoginRequiredMixin, UpdateView):
     model = Viaje
     form_class = ViajeForm
-    #extra_context = {'':''}
+    # extra_context = {'':''}
     success_url = reverse_lazy('viajes:detalle')
 
 @login_required
