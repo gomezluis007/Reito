@@ -5,7 +5,7 @@ from cloudinary.models import CloudinaryField
 
 
 
-# Modelo que representa a un usuario del sistema.
+# Model representing a user of the system.
 class Usuario(User):
     telefono= models.BigIntegerField()
     foto=CloudinaryField('image',default=None,blank=True,null=True)

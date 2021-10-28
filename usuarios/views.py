@@ -13,22 +13,23 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 
-# Crear nuevo usuario. Signup.
+# Class implemented to be used as a Signup. This class uses "Usuario" model and its corresponding form.
 class NuevoUsuario(CreateView):
     model=Usuario
     form_class=UsuarioForm
     template_name="signup.html"
     success_url=reverse_lazy("usuarios:login")
     
-# Iniciar sesión. Login.
+# Class implemented to be used as a Login. This class is utilized to validate user and password of all users when they log in.
 class LoginUsuario(LoginView):
     model=Usuario
     template_name= 'login.html'
 
+# Class implemented to logout a user. This class ends the user's actual session on the site.
 class LogoutUsuario(LogoutView):
     pass
 
-# Funcion para ver los datos del perfil del usuario actualmente logueado, requiere estar logueado
+# Function to see the profile data of the currently logged in user, requires to be logged in.
 @login_required
 def ver_mi_usuario(request):
     usuario = get_object_or_404(Usuario, id=request.user.id)
@@ -40,14 +41,14 @@ def ver_mi_usuario(request):
     return render(request,"detalle_usuarios.html", context)
 
 
-# Funcion para editar los datos del perfil del usuario actualmente logueado, requiere estar logueado
+# Function to edit the profile data of the currently logged in user, requires to be logged in.
 @login_required
 def editar_mi_usuario(request):
-    # busca el usuario actual
+    # Search current user.
     user=get_object_or_404(Usuario,id=request.user.id)
 
     if request.method == "POST":
-        # Si es por post crea una instancia del form a partir de los datos del form del request y el usuario actual
+        # If it is by post, create an instance of the form from the data of the request form and the current user.
         form=EditarUsuarioForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
