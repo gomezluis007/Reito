@@ -1,7 +1,7 @@
 from . import views
 from django.urls import path
 
-app_name="viajes"
+app_name = "viajes"
 
 urlpatterns = [
     path('nuevo/', views.nuevo_viaje, name="nuevo"),
@@ -10,7 +10,7 @@ urlpatterns = [
     path('editar/<int:pk>', views.EditarViaje.as_view(), name="editar"),
     path('eliminar/<int:pk>', views.cancelar_viaje, name="eliminar"),
     path('', views.index, name="index"),
-    path('buscar-destinos/', views.buscar_destinos,name="buscar_destinos"),
-    path('buscar-viajes/<int:pk>', views.buscar_viajes,name="buscar_viajes"),
-    path('ver-viajes/',views.ver_viajes,name = 'ver_viajes'),   
+    path('buscar-destinos/', views.buscar_destinos, name="buscar_destinos"),
+    path('buscar-viajes/<int:pk>', views.buscar_viajes, name="buscar_viajes"),
+    path('ver-viajes/', views.ver_viajes, name='ver_viajes'),
 ]
