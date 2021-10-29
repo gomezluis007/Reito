@@ -25,4 +25,4 @@ urlpatterns = [
     path('', include("viajes.urls")),
     path('vehiculos/', include("vehiculos.urls")),
     path('reservas/', include("reservas.urls")),
-] + static(settings.MEDIA_URL,document_root= settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
