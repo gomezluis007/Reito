@@ -112,7 +112,7 @@ def detalle_viaje(request, pk):
             if(reservas.estado):
                 context['telefono'] = usuario.telefono
         context['viaje'] = viaje
-        # Evia al front end la foto del usuario.
+        # Sends user's image to the frontend
         context['foto'] = usuario.foto
         context['descripcion'] = usuario.descripcion
 
