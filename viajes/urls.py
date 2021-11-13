@@ -13,4 +13,5 @@ urlpatterns = [
     path('buscar-destinos/', views.buscar_destinos, name="buscar_destinos"),
     path('buscar-viajes/<int:pk>', views.buscar_viajes, name="buscar_viajes"),
     path('ver-viajes/', views.ver_viajes, name='ver_viajes'),
+    path('ver-historial/', views.ver_historial, name='ver_historial'),
 ]
