@@ -11,6 +11,7 @@ from .forms import DestinoForm, ViajeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
+from django.core.paginator import Paginator
 
 from datetime import datetime
 
@@ -171,27 +172,44 @@ def buscar_destinos(request):
 
 # Method in charge of recovering trips based on a unique identifier of the destination.
 # This method also filters trips based on price.
-
-
 @login_required
 def buscar_viajes(request, pk):
     destino_encontrado = get_object_or_404(Destino, id=pk)
     if request.GET.get('precio'):
         lista_viajes = Viaje.objects.filter(
-            destino=destino_encontrado, precio__lte=request.GET.get('precio'))
+                                    destino=destino_encontrado, 
+                                    precio__lte=request.GET.get('precio'))
     else:
         lista_viajes = Viaje.objects.filter(destino=destino_encontrado)
-    viajes = []
+   
+    # Aqui se filtran los viajes que no han finalizado
+    viajes_recientes = []
     for viaje in lista_viajes:
+        # Primero verifica que si hay un viaje en el dia actual
+        # si, si hay despues valida que la hora sea mayor a la actual
+        # y si estas dos condiciones son correctas se agrega a la lista de viajes recientes.
+        if viaje.fecha == datetime.now().date():
+            if viaje.hora > datetime.now().time():
+                viajes_recientes.append(viaje)
+        # Despues ya solo verificamos los dias mayores al actual para agregarlos a la
+        # lista de viajes_recientes.
+        if viaje.fecha > datetime.now().date():
+            viajes_recientes.append(viaje)
+           
+    viajes = []
+    for viaje in viajes_recientes:
         if viaje.asientos > 0:
             viajes.append(viaje)
+
     context = {
-        "destino": destino_encontrado
+        "destino": destino_encontrado,
     }
+    
     if(len(viajes) > 0):
         context['viajes'] = viajes
     if request.GET.get('precio'):
         context['precio'] = request.GET.get('precio')
+        
     return render(request, "lista_viajes.html", context)
 
 
