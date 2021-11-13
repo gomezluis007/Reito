@@ -228,3 +228,30 @@ def obtener_destinos_frecuentes():
         destinos.append(destino)
 
     return destinos
+
+@login_required
+def ver_historial(request):
+    usuario = get_object_or_404(Usuario, id=request.user.id)
+    fecha_actual = datetime.now().date()
+    hora_actual = datetime.now().time()
+    reservas_general = Reserva.objects.filter(usuario=usuario)
+    reservas = []
+    for reserva in reservas_general:
+        viaje = reserva.viaje
+        if viaje.fecha < fecha_actual:
+            reservas.append(reserva)
+        elif viaje.fecha == fecha_actual and viaje.hora < hora_actual:
+            reservas.append(reserva)
+        
+    viajes_general = Viaje.objects.filter(conductor=usuario)
+    viajes = []
+    for viaje in viajes_general:
+        if viaje.fecha < fecha_actual:
+            viajes.append(viaje)
+        elif viaje.fecha == fecha_actual and viaje.hora < hora_actual:
+            viajes.append(viaje)
+    context = {
+        'reservas': reservas,
+        'viajes': viajes
+    }
+    return render(request, 'ver_historial.html', context)
