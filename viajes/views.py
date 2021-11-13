@@ -229,27 +229,35 @@ def obtener_destinos_frecuentes():
 
     return destinos
 
+# Funcion para obtener los viajes y reservcas pasados de el usuario logeado.
 @login_required
 def ver_historial(request):
+    # Obtener usuario y datos de fecha actuales.
     usuario = get_object_or_404(Usuario, id=request.user.id)
     fecha_actual = datetime.now().date()
     hora_actual = datetime.now().time()
+    # Obtener todas las reservas, pasadas y actuales.
     reservas_general = Reserva.objects.filter(usuario=usuario)
     reservas = []
+    # For para filtrar las reservas pasadas de entre las generales.
     for reserva in reservas_general:
         viaje = reserva.viaje
         if viaje.fecha < fecha_actual:
             reservas.append(reserva)
         elif viaje.fecha == fecha_actual and viaje.hora < hora_actual:
             reservas.append(reserva)
-        
+    
+    # Obtener viajes en general, pasados y actuales.
     viajes_general = Viaje.objects.filter(conductor=usuario)
     viajes = []
+    # For para filtrar los viajes pasados de los generales.
     for viaje in viajes_general:
         if viaje.fecha < fecha_actual:
             viajes.append(viaje)
         elif viaje.fecha == fecha_actual and viaje.hora < hora_actual:
             viajes.append(viaje)
+    # Agregar en el contexto que irá al front las listas de 
+    # viajes y reservas pasados.
     context = {
         'reservas': reservas,
         'viajes': viajes
