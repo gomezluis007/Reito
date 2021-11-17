@@ -51,7 +51,7 @@ Detalle de cuenta
                     <a href="javascript:history.back()" class="btn boton-negativo"> Volver</a>
                     <button type="submit" class="btn boton">Editar</button>
                     {%if vehiculo %}
-                        <a href="{% url 'vehiculos:ver' vehiculo.id %}" class="boton btn"> Ver mi veh&iacute;culo</a>
+                        <a href="{% url 'vehiculos:ver' %}" class="boton btn"> Ver mi veh&iacute;culo</a>
                     {%else%}
                         <a href="{% url 'vehiculos:nuevo' %}" class="btn boton">Agregar veh&iacute;culo</a>
                     {%endif%}
