@@ -35,7 +35,7 @@
 
             <div class="text-center">
 
-                <a href="javascript:history.back()" class="btn boton-negativo"> Volver</a>
+                <a href="{% url 'viajes:detalle' viaje.id %}" class="btn boton-negativo"> Volver</a>
                 {% if not reserva.estado %}
                     <a class ="btn boton" href="{%url 'reservas:aceptar' usuario.id viaje.id %}">Aceptar pasajero</a>
                 {% endif %}
