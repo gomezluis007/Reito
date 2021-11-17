@@ -16,8 +16,15 @@
             <div class="d-flex align-items-center contenedor-links">
                     
                 {% if user.is_authenticated %}
+
                     <div class="">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{% url 'viajes:mis_reservas'%}">
+                            Mis reservas
+                        </a>
+                    </div>
+
+                    <div class="">
+                        <a class="nav-link" href="{% url 'viajes:nuevo' %}">
                             Publicar Reito
                         </a>
                     </div>
@@ -26,12 +33,6 @@
                     <div class="">
                         <a class="nav-link" href="{% url 'viajes:ver_viajes'%}">
                             Mis reitos
-                        </a>
-                    </div>
-                    
-                    <div class="">
-                        <a class="nav-link" href="#">
-                            Mis reservas
                         </a>
                     </div>
                     

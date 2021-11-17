@@ -226,17 +226,37 @@ def buscar_viajes(request, pk):
         
     return render(request, "lista_viajes.html", context)
 
-
+# Method to get the list of travels made by the user and currently available
 @login_required
 def ver_viajes(request):
     usuario = get_object_or_404(Usuario, id=request.user.id)
-    reservas = Reserva.objects.filter(usuario=usuario)
     viajes = Viaje.objects.filter(conductor=usuario)
     context = {
-        'reservas': reservas,
         'viajes': viajes
     }
     return render(request, 'ver_viajes.html', context)
+
+
+@login_required
+def mis_reservas(request):
+    usuario = get_object_or_404(Usuario, id=request.user.id)
+    reservas = Reserva.objects.filter(usuario=usuario)
+    context = {
+        'reservas': reservas
+    }
+    return render(request, 'mis_reservas.html', context)
+
+
+
+
+# @login_required
+# def ver_viajes(request):
+#     usuario = get_object_or_404(Usuario, id=request.user.id)
+#     viajes = Viaje.objects.filter(conductor=usuario)
+#     context = {
+#         'viajes': viajes
+#     }
+#     return render(request, 'ver_viajes.html', context)
 
 
 '''
