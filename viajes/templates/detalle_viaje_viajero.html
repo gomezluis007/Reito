@@ -8,17 +8,21 @@
     
 
 {% block body %}
+
+
 <!-- Card for the reservation state, it appears if the request is from a reservation -->
-
-
 {% if tiene_reserva %}
     <div class="container col-sm-11 col-md-9 col-lg-5">
         <div class="card">
-            <div class="card-header text-center">
+            <div class="estado">
                 {% if estado_reserva %}
-                    <h2 class="card-title estado-positivo">Reserva aceptada</h2>
+                <div class="card-header text-center estado_positivo">
+                    <h2 class="card-title">Reserva aceptada</h2>
+                </div>
                 {% else %}
-                    <h2 class="card-title estado-positivo">Reserva en espera de aprobaci&oacute;n</h2>
+                <div class="card-header text-center estado_negativo">
+                    <h2 class="card-title">Reserva en espera de aprobaci&oacute;n</h2>
+                </div>
                 {% endif %}
             </div>
             

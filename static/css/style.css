@@ -166,6 +166,17 @@ body {
     font-size: 1.5rem;
 } */
 
+div.estado {
+    color: #fff;
+}
+div.estado_positivo {
+    background-color: #17C3B2;
+}
+
+div.estado_negativo {
+    background-color: #3A606E; 
+}
+
 .boton-negativo {
     background:#3A606E; 
     color:white;
