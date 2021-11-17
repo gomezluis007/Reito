@@ -1,7 +1,8 @@
-from django.shortcuts import get_object_or_404
-from django.views.generic.detail import DetailView
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render
 from .models import Vehiculo
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.edit import CreateView
 from .forms import Vehiculos_editar, VehiculosForm
 from django.urls import reverse_lazy
 from usuarios.models import Usuario
@@ -24,28 +25,54 @@ class VehiculoCrear(LoginRequiredMixin, CreateView):
         usuario = get_object_or_404(Usuario, id=self.request.user.id)
         form.instance.id_usuario = usuario
         return super().form_valid(form)
+    
+    
+# This  method has the function to update the data of a car
 
-# This class has the function of allowing the modification of an existing vehicle
-# taking as a form a special form which only requests the description since
-# for security this is the only modifiable field.
+@login_required
+def editar_vehiculo(request):
+    # Search current user.
+    usuario = get_object_or_404(Usuario, id=request.user.id)
+    vehiculo = Vehiculo.objects.filter(id_usuario=usuario).first()
+    
+    if request.method == "POST":
+        form = Vehiculos_editar(request.POST, request.FILES, instance=vehiculo)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Tu vehiculo se ha actualizado")
+            return redirect("usuarios:ver_mi_cuenta")
+    form = Vehiculos_editar(instance=vehiculo)
+    context = {
+        "form": form,
+        "vehiculo": vehiculo
+    }
+    return render(request, "editar_vehiculo.html", context)
+    
+    
+    
+# This method has the function to delete a car
 
+def eliminar_vehiculo(request, pk):
+    vehiculo = get_object_or_404(Vehiculo, id=pk)
+    
+    if request.method == "POST":
+        vehiculo.delete()
+        messages.success(request, "Tu Vehículo se ha eliminado con éxito.")
+        return redirect('usuarios:ver_mi_cuenta')
+        
+    
 
-class VehiculoActualizar(UpdateView):
-    model = Vehiculo
-    form_class = Vehiculos_editar
-    template_name = "editar_vehiculo.html"
-    success_url = reverse_lazy('usuarios:ver_mi_cuenta')
+# This  method has the function to  show  the data of a car
 
-
-class VehiculoEliminar(DeleteView):
-    model = Vehiculo
-    success_url = reverse_lazy('usuarios:ver_mi_cuenta')
-
-# This class is in charge of displaying the information of a vehicle in case # a user wants to see their vehicle.
-
-
-class VehiculoDetalle(LoginRequiredMixin, DetailView):
-    model = Vehiculo
-    form_class = VehiculosForm
-    context_object_name = 'vehiculo'
-    template_name = "detalle_vehiculo.html"
+@login_required
+def ver_vehiculo(request):
+    usuario = get_object_or_404(Usuario, id=request.user.id)
+    vehiculo = Vehiculo.objects.filter(id_usuario=usuario).first()
+    context = {
+        'usuario': usuario,
+        'vehiculo': vehiculo
+    }
+    return render(request, "detalle_vehiculo.html", context)
+    
+    
+    
