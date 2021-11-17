@@ -328,3 +328,24 @@ def ver_historial_viajero(request):
     }
         
     return render(request, 'ver_historial.html', context)
+
+def ver_historial_conductor(request):
+    # Obtener usuario y datos de fecha actuales.
+    usuario = get_object_or_404(Usuario, id=request.user.id)
+    fecha_actual = datetime.now().date()
+    hora_actual = datetime.now().time()
+    # Obtener viajes en general, pasados y actuales.
+    viajes_general = Viaje.objects.filter(conductor=usuario)
+    viajes = []
+    # For para filtrar los viajes pasados de los generales.
+    for viaje in viajes_general:
+        if viaje.fecha < fecha_actual:
+            viajes.append(viaje)
+        elif viaje.fecha == fecha_actual and viaje.hora < hora_actual:
+            viajes.append(viaje)
+            
+    context = { 
+        'viajes': viajes,
+        'conductor' : True
+    }
+    return render(request, 'ver_historial.html', context) 
