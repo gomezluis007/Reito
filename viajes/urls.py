@@ -13,6 +13,7 @@ urlpatterns = [
     path('buscar-destinos/', views.buscar_destinos, name="buscar_destinos"),
     path('buscar-viajes/<int:pk>', views.buscar_viajes, name="buscar_viajes"),
     path('ver-viajes/', views.ver_viajes, name='ver_viajes'),
+    path('mis-reservas/', views.mis_reservas, name='mis_reservas'),
     path('ver-historial/', views.ver_historial, name='ver_historial'),
     path('ver-historial-viajero/', views.ver_historial_viajero, name='ver_historial_viajero'),
     path('ver-historial-conductor/', views.ver_historial_conductor, name='ver_historial_conductor'),

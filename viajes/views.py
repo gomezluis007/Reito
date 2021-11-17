@@ -115,13 +115,14 @@ def detalle_viaje(request, pk):
         reservas = Reserva.objects.filter(
             usuario=request.user.id, viaje=pk).first()
         context = {}
+        
+        # get the vehicle from the user driver
         vehiculo = get_object_or_404(Vehiculo, id_usuario=usuario.id)
         context['vehiculo'] = vehiculo
         if(reservas):
             # Send the reservation state
             context['estado_reserva'] = reservas.estado
             context['tiene_reserva'] = True
-            # get the vehicle from the user driver
             
             if(reservas.estado == True):
                 context['telefono'] = usuario.telefono
@@ -225,17 +226,37 @@ def buscar_viajes(request, pk):
         
     return render(request, "lista_viajes.html", context)
 
-
+# Method to get the list of travels made by the user and currently available
 @login_required
 def ver_viajes(request):
     usuario = get_object_or_404(Usuario, id=request.user.id)
-    reservas = Reserva.objects.filter(usuario=usuario)
     viajes = Viaje.objects.filter(conductor=usuario)
     context = {
-        'reservas': reservas,
         'viajes': viajes
     }
     return render(request, 'ver_viajes.html', context)
+
+
+@login_required
+def mis_reservas(request):
+    usuario = get_object_or_404(Usuario, id=request.user.id)
+    reservas = Reserva.objects.filter(usuario=usuario)
+    context = {
+        'reservas': reservas
+    }
+    return render(request, 'mis_reservas.html', context)
+
+
+
+
+# @login_required
+# def ver_viajes(request):
+#     usuario = get_object_or_404(Usuario, id=request.user.id)
+#     viajes = Viaje.objects.filter(conductor=usuario)
+#     context = {
+#         'viajes': viajes
+#     }
+#     return render(request, 'ver_viajes.html', context)
 
 
 '''
