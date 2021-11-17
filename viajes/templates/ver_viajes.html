@@ -23,8 +23,24 @@
                 <div class="text-center">
                     <h3>{{reserva.viaje.destino}}</h3>
                 </div>
-                <div>
+                <div class="d-flex justify-content-between">
                     <small>{{reserva.viaje.fecha}} - {{reserva.viaje.hora}}</small>
+
+                    {% if reserva.estado %}
+                        <div class="etiqueta_positiva">
+                            <small>
+                                <i class="far fa-check-circle"></i> Aceptada
+                            </small>
+                        </div>
+                    {% else %}
+                        <div class="etiqueta_negativa">
+                            <small>
+                                <i class="far fa-clock"></i> Pendiente
+                            </small>
+                        </div>
+                    {% endif %}
+                        
+                    
                 </div>
             </a>
         {% endfor %}

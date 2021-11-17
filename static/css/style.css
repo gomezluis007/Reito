@@ -173,6 +173,14 @@ div.estado_positivo {
     background-color: #17C3B2;
 }
 
+.etiqueta_negativa {
+    color: #3A606E;
+}
+
+.etiqueta_positiva {
+    color: #17C3B2;
+}
+
 div.estado_negativo {
     background-color: #3A606E; 
 }
