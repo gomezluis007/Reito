@@ -46,10 +46,16 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item">{{viaje.hora}}</li>
             <li class="list-group-item">${{viaje.precio}}</li>
-            <li class="list-group-item">{{viaje.asientos}} asientos disponibles</li>
-            {% if telefono %}
-            <li class="list-group-item">{{telefono}}</li>
+            <li class="list-group-item">{{vehiculo.marca}}</li>
+            <li class="list-group-item">{{vehiculo.modelo}}</li>
+            
+            {% if viaje.asientos == 1 %}
+                <li class="list-group-item">{{viaje.asientos}} asiento disponible</li>
+            {% else %}
+                <li class="list-group-item">{{viaje.asientos}} asientos disponibles</li> 
             {% endif %}
+                
+            
         </ul>
         
         <div class="card-body">

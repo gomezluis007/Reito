@@ -112,14 +112,15 @@ def detalle_viaje(request, pk):
         reservas = Reserva.objects.filter(
             usuario=request.user.id, viaje=pk).first()
         context = {}
+        vehiculo = get_object_or_404(Vehiculo, id_usuario=usuario.id)
+        context['vehiculo'] = vehiculo
         if(reservas):
             # Send the reservation state
             context['estado_reserva'] = reservas.estado
             context['tiene_reserva'] = True
+            # get the vehicle from the user driver
+            
             if(reservas.estado == True):
-                # get the vehicle from the user driver
-                vehiculo = get_object_or_404(Vehiculo, id_usuario=usuario.id)
-                context['vehiculo'] = vehiculo
                 context['telefono'] = usuario.telefono
         context['viaje'] = viaje
         # Sends user's image to the frontend
