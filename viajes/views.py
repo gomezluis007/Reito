@@ -300,6 +300,31 @@ def ver_historial(request):
     # viajes y reservas pasados.
     context = {
         'reservas': reservas,
-        'viajes': viajes
+        'viajes': viajes,
+        'viajero' : True,
+        'conductor' : True
     }
+    return render(request, 'ver_historial.html', context)
+
+def ver_historial_viajero(request):
+    # Obtener usuario y datos de fecha actuales.
+    usuario = get_object_or_404(Usuario, id=request.user.id)
+    fecha_actual = datetime.now().date()
+    hora_actual = datetime.now().time()
+    # Obtener todas las reservas, pasadas y actuales.
+    reservas_general = Reserva.objects.filter(usuario=usuario)
+    reservas = []
+    # For para filtrar las reservas pasadas de entre las generales.
+    for reserva in reservas_general:
+        viaje = reserva.viaje
+        if viaje.fecha < fecha_actual:
+            reservas.append(reserva)
+        elif viaje.fecha == fecha_actual and viaje.hora < hora_actual:
+            reservas.append(reserva)
+                
+    context = {
+        'reservas': reservas,
+        'viajero' : True
+    }
+        
     return render(request, 'ver_historial.html', context)
