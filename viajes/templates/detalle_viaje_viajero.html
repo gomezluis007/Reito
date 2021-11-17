@@ -8,7 +8,34 @@
     
 
 {% block body %}
-  
+<!-- Card for the reservation state, it appears if the request is from a reservation -->
+
+
+{% if tiene_reserva %}
+    <div class="container col-sm-11 col-md-9 col-lg-5">
+        <div class="card">
+            <div class="card-header text-center">
+                {% if estado_reserva %}
+                    <h2 class="card-title estado-positivo">Reserva aceptada</h2>
+                {% else %}
+                    <h2 class="card-title estado-positivo">Reserva en espera de aprobaci&oacute;n</h2>
+                {% endif %}
+            </div>
+            
+            {% if estado_reserva %}
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{telefono}}</li>
+                    <li class="list-group-item">{{vehiculo.matricula}}</li>
+                    <li class="list-group-item">{{vehiculo.descripcion}}</li>
+                    <!-- <li class="list-group-item"><strong>Matr&iacute;cula:</strong> {{vehiculo.matricula}}</li>
+                    <li class="list-group-item"><strong>Autom&oacute;vil:</strong>{{vehiculo.descripcion}}</li> -->
+                </ul>
+            {% endif %}
+        </div> 
+    </div>
+    <br>
+{% endif %}
+
 
 <div class="container col-sm-11 col-md-9 col-lg-5">
     <div class="card">
@@ -28,12 +55,7 @@
         <div class="card-body">
             <p class="card-text">{{viaje.descripcion}}</p>
         </div>
-
-        
-    </div>
-
-    
-    
+    </div> 
 </div>
 
 <br>

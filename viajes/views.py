@@ -2,6 +2,7 @@ from django.contrib import messages
 from usuarios.models import Usuario
 from vehiculos.models import Vehiculo
 from .models import Viaje, Destino
+from vehiculos.models import Vehiculo
 from reservas.models import Reserva
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.edit import CreateView, UpdateView
@@ -76,7 +77,10 @@ class NuevoDestino(LoginRequiredMixin, CreateView):
 
 @login_required
 def detalle_viaje(request, pk):
+    # get the reito with the given pk
     viaje = get_object_or_404(Viaje, id=pk)
+    
+    # get the user driver
     usuario = get_object_or_404(Usuario, id=viaje.conductor.id)
 
     if(request.user.id == usuario.id):
@@ -109,8 +113,13 @@ def detalle_viaje(request, pk):
             usuario=request.user.id, viaje=pk).first()
         context = {}
         if(reservas):
+            # Send the reservation state
+            context['estado_reserva'] = reservas.estado
             context['tiene_reserva'] = True
-            if(reservas.estado):
+            if(reservas.estado == True):
+                # get the vehicle from the user driver
+                vehiculo = get_object_or_404(Vehiculo, id_usuario=usuario.id)
+                context['vehiculo'] = vehiculo
                 context['telefono'] = usuario.telefono
         context['viaje'] = viaje
         # Sends user's image to the frontend
