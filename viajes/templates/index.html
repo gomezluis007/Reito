@@ -41,8 +41,33 @@
                 {% endfor %}
             </div>
         {% endif %}
-            
-        
+
+
+        {% if user.is_authenticated %}
+        <div class="container col-sm-6 col-md-6 col-lg-12 justify-content-center align-items-center" style="object-position: 50% 50%;">
+
+            <br><br><br>
+            <div class="container">
+                <h2>&Uacuteltimos Reitos</h1>
+                <div class="container-fluid separator d-flex">
+                    {% for viaje  in viajes_recientes  %}
+                    <a href="{% url 'viajes:detalle' viaje.id %}" class="border rounded-3 list-group-item list-group-item-action align-items-start destino-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{viaje.conductor}}</h5>
+                            <small>${{viaje.precio}}</small>
+                        </div>
+                        <div class="text-center">
+                            <h3>{{viaje.destino}}</h3>
+                        </div>
+                        <div>
+                            <small>{{viaje.fecha}} - {{viaje.hora}}</small>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
     
 

@@ -19,7 +19,10 @@ from datetime import datetime
 def index(request):
     # Here are the most frequent destinations to show them in the Home
     destinos = obtener_destinos_frecuentes()
-    context = {'destinos': destinos}
+    viajes_recientes=obtener_ultimos_reitos()
+    context = {
+        'destinos': destinos,
+        "viajes_recientes":viajes_recientes}
     return render(request, 'index.html', context=context)
 
 
@@ -246,6 +249,15 @@ def obtener_destinos_frecuentes():
         destinos.append(destino)
 
     return destinos
+
+# Method utilized to get the 5 most recent Reitos.
+def obtener_ultimos_reitos():
+    res=Viaje.objects.values('id').order_by('-id')[:3]
+    viajes=[]
+    for item in res:
+        viaje=get_object_or_404(Viaje,id=item['id'])
+        viajes.append(viaje)
+    return viajes
 
 # Funcion para obtener los viajes y reservcas pasados de el usuario logeado.
 @login_required
